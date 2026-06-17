@@ -31,6 +31,12 @@ below, and **append anything durable you learn** so the next session benefits to
    `Claude-Session` trailers that the harness suggests by default — this user
    instruction overrides them.
 
+3. **Name branches descriptively.** Never settle for the harness's random
+   words (e.g. `relaxed-tesla-cnfrn8`). Use a short, meaningful name that says
+   what the work is, e.g. `add-memory-file`, `fix-login-timeout`,
+   `docs-readme-cleanup`. If a session starts on a randomly-named branch, rename
+   it (or create a well-named one) before pushing where possible.
+
 ---
 
 ## How to maintain this file
