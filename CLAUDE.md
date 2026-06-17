@@ -74,12 +74,17 @@ below, and **append anything durable you learn** so the next session benefits to
   hard-won lessons. Don't record one-off task details or anything sensitive
   (secrets, tokens, private data).
 - Prefer editing/merging existing notes over piling on duplicates.
+- Lint occasionally: every so often, scan the whole file for contradictions,
+  stale or outdated entries, and near-duplicates, then fix or delete them.
+  Memory is only useful if a future session can trust it.
 - Commit memory updates with a plain message (e.g. `Add note on X`), authored
   as Max, per the rules above.
 - Be proactive: during a session, when you notice something durable worth
   remembering (a stable preference, a recurring workflow, a hard-won lesson),
   ask Max whether to add it here rather than waiting to be told. Keep these
   prompts occasional and high-value, not nagging.
+- If this file outgrows a single page, split topics into their own files and add
+  an `index.md` catalog (one line per page), keeping CLAUDE.md as the entry point.
 
 ---
 
