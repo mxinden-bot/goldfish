@@ -37,14 +37,23 @@ below, and **append anything durable you learn** so the next session benefits to
    `docs-readme-cleanup`. If a session starts on a randomly-named branch, rename
    it (or create a well-named one) before pushing where possible.
 
-4. **Start from latest upstream `main`.** Before beginning a new patch or pull
-   request, pull the latest `main` from upstream and branch off it, so work is
-   never based on a stale tree:
+4. **Start from latest upstream `main`, and sync the fork.** Before beginning a
+   new patch or pull request, pull the latest `main` from upstream and branch off
+   it, so work is never based on a stale tree:
    ```sh
    git fetch origin
    git checkout main && git pull origin main
    git checkout -b <descriptive-name>
    ```
+   Also fast-forward the online fork's `main` (github.com/mxinden-bot) to match
+   upstream, so the fork never drifts behind. With two remotes (`upstream` =
+   canonical repo, `origin` = the fork):
+   ```sh
+   git fetch upstream
+   git push origin upstream/main:main
+   ```
+   (Equivalent to a `gh repo sync mxinden-bot/<repo> --source <upstream>` when the
+   GitHub CLI is available.)
 
 5. **Never use the em dash (`—`).** Max would never use one, so don't put it in
    anything: prose, commit messages, code, PRs, or this file. Rephrase with a
