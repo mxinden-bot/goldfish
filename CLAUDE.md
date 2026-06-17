@@ -98,7 +98,9 @@ below, and **append anything durable you learn** so the next session benefits to
 
 ## Workflow & tooling notes
 
-<!-- Recurring commands, conventions, environment quirks worth remembering. -->
+- A scheduled upkeep routine lives in `routines/memory-upkeep.md`: it lints this
+  memory and opens a PR with any proposed changes. The web schedule only points
+  at that file, so manage the routine's behavior in git by editing it.
 
 ## Project pointers
 
