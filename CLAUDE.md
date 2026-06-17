@@ -37,6 +37,15 @@ below, and **append anything durable you learn** so the next session benefits to
    `docs-readme-cleanup`. If a session starts on a randomly-named branch, rename
    it (or create a well-named one) before pushing where possible.
 
+4. **Start from latest upstream `main`.** Before beginning a new patch or pull
+   request, pull the latest `main` from upstream and branch off it, so work is
+   never based on a stale tree:
+   ```sh
+   git fetch origin
+   git checkout main && git pull origin main
+   git checkout -b <descriptive-name>
+   ```
+
 ---
 
 ## How to maintain this file
