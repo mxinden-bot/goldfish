@@ -5,6 +5,12 @@ A fresh session has no recollection of the last one (goldfish memory), and this
 file is the cure. Max includes this repo in his Claude Code on the web sessions so that
 every "future you" reads this file automatically at startup.
 
+> ⚠️ **THIS REPOSITORY IS PUBLIC.** Everything committed here is visible to the
+> world, forever, in git history. Never write secrets, tokens, credentials,
+> private URLs, internal hostnames, or anything confidential to Max, his
+> employer, or clients. Only persist things Max would happily post in the open.
+> When in doubt, leave it out (or ask first).
+
 If you are a future session: **read this whole file first**, follow the rules
 below, and **append anything durable you learn** so the next session benefits too.
 
@@ -70,6 +76,10 @@ below, and **append anything durable you learn** so the next session benefits to
 - Prefer editing/merging existing notes over piling on duplicates.
 - Commit memory updates with a plain message (e.g. `Add note on X`), authored
   as Max, per the rules above.
+- Be proactive: during a session, when you notice something durable worth
+  remembering (a stable preference, a recurring workflow, a hard-won lesson),
+  ask Max whether to add it here rather than waiting to be told. Keep these
+  prompts occasional and high-value, not nagging.
 
 ---
 
