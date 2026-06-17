@@ -2,7 +2,7 @@
 
 Persistent, cross-session memory for Claude Code.
 
-Each Claude Code session starts with no memory of the last one — like a goldfish.
+Each Claude Code session starts with no memory of the last one, like a goldfish.
 This repo fixes that. It's included in every Claude Code on the web session so the
 agent reads accumulated context, preferences, and rules at startup.
 
