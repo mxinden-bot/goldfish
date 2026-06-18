@@ -101,6 +101,10 @@ below, and **append anything durable you learn** so the next session benefits to
 - A scheduled upkeep routine lives in `routines/memory-upkeep.md`: it lints this
   memory and opens a PR with any proposed changes. The web schedule only points
   at that file, so manage the routine's behavior in git by editing it.
+- Bugzilla bugs: when Max asks to draft one, do not return prose to paste. Build
+  a ready-to-click `enter_bug.cgi` URL with the fields pre-filled so he opens it,
+  reviews, and clicks Save/Submit. Parameter reference and example:
+  `references/bugzilla-prefill-url.md`.
 
 ## Project pointers
 
