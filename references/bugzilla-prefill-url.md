@@ -7,10 +7,11 @@ from the query string.
 
 ## Endpoint
 
-    <BUGZILLA_BASE_URL>/enter_bug.cgi?product=...&component=...&short_desc=...&comment=...
+    https://bugzilla.mozilla.org/enter_bug.cgi?product=...&component=...&short_desc=...&comment=...
 
-Use whichever Bugzilla instance the bug is for. Do not hard-code an internal or
-private hostname in this public repo; take the base URL from Max per request.
+Max only ever uses the Mozilla instance (`bugzilla.mozilla.org`, public), so that
+is the default base URL. Tip: append `format=__default__` if a product opens a
+guided or simplified form and you want the full standard entry form instead.
 
 ## Parameters (query string to form field)
 
@@ -56,4 +57,4 @@ private hostname in this public repo; take the base URL from Max per request.
 
 ## Example
 
-    https://bugzilla.example.org/enter_bug.cgi?product=Core&component=Networking&version=unspecified&short_desc=DNS%20resolver%20times%20out%20on%20IPv6&comment=Steps:%0A1.%20Disable%20IPv4%0A2.%20Load%20a%20page%0AExpected%20resolves,%20actual%20times%20out.&bug_severity=normal&op_sys=Linux
+    https://bugzilla.mozilla.org/enter_bug.cgi?product=Core&component=Networking%3A%20DNS&short_desc=DNS%20resolver%20times%20out%20on%20IPv6&comment=Steps:%0A1.%20Disable%20IPv4%0A2.%20Load%20a%20page%0AExpected%20resolves,%20actual%20times%20out.&bug_severity=normal&op_sys=Linux
