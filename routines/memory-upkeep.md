@@ -25,14 +25,18 @@ trip up this routine:
 1. Sync. Fetch origin, check out main, pull the latest.
 2. Lint the memory. Read CLAUDE.md (and any other memory files) and look for:
    - contradictions or overlapping/duplicate notes: merge them;
-   - stale or outdated entries: update or remove;
+   - stale or outdated entries: update or remove (watch dated "as of" facts);
    - anything unsafe for a PUBLIC repo (secrets, tokens, credentials, private
      URLs, internal hostnames, employer or client confidentials): remove it and
      flag it prominently in the PR;
-   - any em dash: rephrase;
-   - drift from the hard rules;
-   - bloat: if the file is getting long, propose splitting topics into their own
-     files with an index.md catalog, keeping CLAUDE.md as the entry point.
+   - broken or dangling internal links, and orphan files that nothing points to:
+     fix the link or add the file to `index.md`;
+   - `index.md` out of sync with the actual files: reconcile it;
+   - the hard rules as invariants across the whole repo, not just CLAUDE.md: no
+     em dash anywhere, no mention of AI tools or agents, commits authored as Max,
+     nothing sensitive;
+   - bloat: if a file is getting long, propose splitting topics into their own
+     files and adding them to `index.md`, keeping CLAUDE.md as the entry point.
 3. Tighten wording for clarity and concision, without changing meaning.
 
 ## How to surface changes for review

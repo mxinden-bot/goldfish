@@ -77,14 +77,21 @@ below, and **append anything durable you learn** so the next session benefits to
 - Lint occasionally: every so often, scan the whole file for contradictions,
   stale or outdated entries, and near-duplicates, then fix or delete them.
   Memory is only useful if a future session can trust it.
+- Date facts that can go stale (e.g. "as of 2026-06: ..."), so a later lint
+  knows what to re-confirm. For everything else, git history is the timeline.
 - Commit memory updates with a plain message (e.g. `Add note on X`), authored
   as Max, per the rules above.
 - Be proactive: during a session, when you notice something durable worth
   remembering (a stable preference, a recurring workflow, a hard-won lesson),
   ask Max whether to add it here rather than waiting to be told. Keep these
   prompts occasional and high-value, not nagging.
-- If this file outgrows a single page, split topics into their own files and add
-  an `index.md` catalog (one line per page), keeping CLAUDE.md as the entry point.
+- Crystallize at session end: before finishing a session that produced something
+  durable, distill it to its lasting point and file it in the right place (after
+  checking with Max). Keep the lesson, drop the play-by-play.
+- Files beyond this one are cataloged in `index.md`; keep it current in the same
+  commit when you add, move, or remove a file. If a section here grows large,
+  split it into its own file and add it to the index. CLAUDE.md stays the entry
+  point.
 
 ---
 
