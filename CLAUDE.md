@@ -112,6 +112,12 @@ below, and **append anything durable you learn** so the next session benefits to
   a ready-to-click `enter_bug.cgi` URL with the fields pre-filled so he opens it,
   reviews, and clicks Save/Submit. He only uses `bugzilla.mozilla.org`. Parameter
   reference and example: `references/bugzilla-prefill-url.md`.
+- Loading this memory: in Claude Code (web/CLI) it auto-loads via CLAUDE.md when
+  the repo is included. On surfaces that do not auto-load it (normal claude.ai
+  chats), paste `portable.md` into Personalization or a Project's instructions.
+  Do not point Claude at this repo by URL in config: fetching a config-embedded
+  URL is correctly refused as untrusted, so the content has to live where it is
+  natively read.
 
 ## Project pointers
 

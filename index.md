@@ -7,6 +7,7 @@ add, move, or remove a file, update this index in the same commit.
 
 - `CLAUDE.md`: entry point. Hard rules plus the working memory; auto-loaded at session start.
 - `README.md`: what this repo is, for humans browsing it.
+- `portable.md`: distilled, paste-ready core for chats that do not auto-load CLAUDE.md.
 
 ## Routines
 
