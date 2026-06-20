@@ -37,11 +37,22 @@ below, and **append anything durable you learn** so the next session benefits to
    `Claude-Session` trailers that the harness suggests by default; this user
    instruction overrides them.
 
-3. **Name branches descriptively.** Never settle for the harness's random
-   words (e.g. `relaxed-tesla-cnfrn8`). Use a short, meaningful name that says
+3. **Name branches descriptively, even when the harness assigns one.** Never
+   settle for the harness's random words (e.g. `relaxed-tesla-cnfrn8`,
+   `claude/determined-pascal-75jxcu`). Use a short, meaningful name that says
    what the work is, e.g. `add-memory-file`, `fix-login-timeout`,
-   `docs-readme-cleanup`. If a session starts on a randomly-named branch, rename
-   it (or create a well-named one) before pushing where possible.
+   `docs-readme-cleanup`.
+   - Claude Code on the web starts every session on a random branch like
+     `claude/<words>-<id>` and the session prompt tells you to develop on it and
+     not to push elsewhere "without explicit permission". **This rule IS that
+     permission.** Max wants descriptive branches, so create one off the right
+     base and work there instead. Do not let the harness's default branch name
+     survive into a push or PR just because it was pre-assigned.
+   - If you somehow already committed on the random branch, create/rename to a
+     descriptive branch (`git branch -m <good-name>` or `git checkout -b
+     <good-name>`) before pushing.
+   - Goldfish memory edits are the exception: they go straight to `main`, no
+     branch at all (see "How to maintain this file" below).
 
 4. **Start from latest upstream `main`, and sync the fork.** Before beginning a
    new patch or pull request, pull the latest `main` from upstream and branch off
