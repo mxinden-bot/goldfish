@@ -103,6 +103,7 @@ below, and **append anything durable you learn** so the next session benefits to
 - Email / git identity: `mail@max-inden.de`.
 - Works primarily via Claude Code on the web; this repo is always included for
   shared memory.
+- This repo's default branch is `main`.
 
 <!-- Append stable preferences as you learn them. -->
 
