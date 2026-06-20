@@ -81,6 +81,9 @@ below, and **append anything durable you learn** so the next session benefits to
   knows what to re-confirm. For everything else, git history is the timeline.
 - Commit memory updates with a plain message (e.g. `Add note on X`), authored
   as Max, per the rules above.
+- This repo's memory updates go straight to `main`: commit and push directly to
+  `main`, no feature branch and no PR. (The branch rules in "Hard rules" are for
+  code patches to other projects, not for editing this memory.)
 - Be proactive: during a session, when you notice something durable worth
   remembering (a stable preference, a recurring workflow, a hard-won lesson),
   ask Max whether to add it here rather than waiting to be told. Keep these
