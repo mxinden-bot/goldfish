@@ -134,8 +134,9 @@ below, and **append anything durable you learn** so the next session benefits to
   defaults); native is unchanged because `getaddrinfo` exposes no SOA. Added a
   `TRRQuery` profiler marker (Socket Thread) for observability. Pushed to a
   feature branch on the fork; not yet built or tested (needs a gtest and a try
-  run). Related bugs: 1743995 (positive DoH TTL, the precedent it mirrors),
-  2044910 (NXDOMAIN cached too long, the regression to avoid).
+  run). Tracked in bug 2049173; related: 1743995 (positive DoH TTL, the
+  precedent it mirrors), 2044910 (NXDOMAIN cached too long, the regression to
+  avoid).
 
 ## Lessons learned
 
