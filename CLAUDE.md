@@ -123,6 +123,20 @@ below, and **append anything durable you learn** so the next session benefits to
 
 <!-- Repos Max works on and key facts about each. -->
 
+- Firefox networking (Necko): Max works on DNS/DoH and Happy Eyeballs v3.
+  The HE algorithm is the `happy-eyeballs` crate vendored in
+  `third_party/rust/happy-eyeballs/`, with C++ glue in
+  `netwerk/protocol/http/happy_eyeballs_glue/` (markers in its `profiler.rs`).
+- Firefox DNS (as of 2026-06): drafted a patch to honor SOA-derived negative
+  TTL (RFC 2308 section 3) on the DoH/TRR path. Parse the SOA MINIMUM in
+  `DNSPacket::DecodeInternal` and apply `min(MINIMUM, SOA TTL)` to the negative
+  cache via the host record (capped at 1h, fallback to the existing fixed
+  defaults); native is unchanged because `getaddrinfo` exposes no SOA. Added a
+  `TRRQuery` profiler marker (Socket Thread) for observability. Pushed to a
+  feature branch on the fork; not yet built or tested (needs a gtest and a try
+  run). Related bugs: 1743995 (positive DoH TTL, the precedent it mirrors),
+  2044910 (NXDOMAIN cached too long, the regression to avoid).
+
 ## Lessons learned
 
 <!-- Mistakes to not repeat; gotchas; things that surprised a past session. -->
