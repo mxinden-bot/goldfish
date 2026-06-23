@@ -115,6 +115,10 @@ below, and **append anything durable you learn** so the next session benefits to
 - Works primarily via Claude Code on the web; this repo is always included for
   shared memory.
 - This repo's default branch is `main`.
+- Wants a single commit per pull request. Squash the branch into one clean,
+  descriptive commit before (or when) pushing, even after a back-and-forth of
+  review fixes. Use `git reset --soft <base>` then recommit, and
+  `git push --force-with-lease`.
 
 <!-- Append stable preferences as you learn them. -->
 
