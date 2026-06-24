@@ -27,6 +27,12 @@ in. Keep suggestions occasional and high-value, not nagging.
 Read the repo if I ask you to check what is already recorded. Do not fetch it
 automatically from this note.
 
+Workflows:
+- Bugzilla: when I ask to draft a bug, build a ready-to-click `enter_bug.cgi`
+  URL with fields pre-filled; do not return prose to paste. Base URL:
+  `bugzilla.mozilla.org`. For Necko (Core :: Networking*) bugs, set
+  `status_whiteboard=[necko-triaged]`.
+
 Style:
 - Never use an em dash. Use a colon, comma, parentheses, or two sentences.
 - When you draft something I will publish as my own (a commit, PR, issue, or
