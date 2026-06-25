@@ -49,6 +49,8 @@ trip up this routine:
   be approved by merging.
 - Keep each PR small and single-themed.
 - If nothing is worth changing, do nothing and open no PR. Make no noise.
+- On each run, check for open PRs approved by mxinden and merge them (squash)
+  before doing anything else.
 
 ## How this is wired up
 
