@@ -32,6 +32,9 @@ Workflows:
   URL with fields pre-filled; do not return prose to paste. Base URL:
   `bugzilla.mozilla.org`. For Necko (Core :: Networking*) bugs, set
   `status_whiteboard=[necko-triaged]`.
+- Git: one commit per pull request. Squash to a single clean commit before (or
+  when) pushing, even after review back-and-forth. Use `git reset --soft <base>`
+  then recommit, and `git push --force-with-lease`.
 
 Style:
 - Never use an em dash. Use a colon, comma, parentheses, or two sentences.
