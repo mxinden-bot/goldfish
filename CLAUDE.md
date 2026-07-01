@@ -127,6 +127,11 @@ below, and **append anything durable you learn** so the next session benefits to
 - A scheduled upkeep routine lives in `routines/memory-upkeep.md`: it lints this
   memory and opens a PR with any proposed changes. The web schedule only points
   at that file, so manage the routine's behavior in git by editing it.
+- Running neqo tests in a web sandbox: the git protocol is blocked (403) and
+  neqo needs a recent NSS, so `cargo test` does not work out of the box. Full
+  working recipe (vendor `nss-rs` over HTTPS, `[patch]` it in, build NSS from the
+  firefox checkout, set `NSS_DIR`/`NSS_PREBUILT`): see
+  `references/neqo-cargo-test-in-web-sandbox.md`. Verified 2026-07.
 - Bugzilla bugs: when Max asks to draft one, do not return prose to paste. Build
   a ready-to-click `enter_bug.cgi` URL with the fields pre-filled so he opens it,
   reviews, and clicks Save/Submit. He only uses `bugzilla.mozilla.org`. Parameter
