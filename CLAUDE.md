@@ -150,6 +150,23 @@ below, and **append anything durable you learn** so the next session benefits to
 
 <!-- Repos Max works on and key facts about each. -->
 
+- neqo -> Firefox downstream: bump the five neqo crate `tag`/`rev`s in
+  `netwerk/socket/neqo_glue/Cargo.toml` and `netwerk/test/http3server/Cargo.toml`, then
+  `./mach vendor rust` (updates `Cargo.lock`, re-vendors `third_party/rust/neqo-*`,
+  regenerates the cbindgen FFI header). `mtu` is a neqo workspace crate and needs a fresh
+  `supply-chain/audits.toml` git-delta audit on each bump. Glue lives in
+  `netwerk/socket/neqo_glue/src/lib.rs` (client; cbindgen -> `Http3Session.cpp`); the
+  `http3server` test binary uses neqo's server-side API. Verify with `./mach build`.
+
 ## Lessons learned
 
 <!-- Mistakes to not repeat; gotchas; things that surprised a past session. -->
+
+- neqo lints are strict (`-D warnings`), so run clippy locally before pushing neqo
+  patches (same NSS setup as `references/neqo-cargo-test-in-web-sandbox.md`;
+  `cargo clippy --all-targets --no-default-features -- -D warnings` per crate). Reverting
+  an old upstream patch verbatim often fails *today's* clippy: bare `u64 as usize` trips
+  `cast_possible_truncation`, `x as u64` trips `cast_lossless` (use `u64::from`/`to_u64`),
+  `.unwrap()` in a `fn -> Result` trips `unwrap_in_result`, and `#[allow]` trips
+  `allow_attributes` (use `#[expect]`). Chasing these one-per-CI-round wastes time. A
+  function-level `#[expect(lint)]` does cover casts in `const` items nested in that fn.
