@@ -74,3 +74,27 @@ Toolchain already present: `cargo`, `clang`/`libclang-18`, `ninja`, `cc`,
   "Beta"/customized NSS from firefox is accepted.
 - This is local-only scaffolding: the `[patch]` block and any test edits must
   not be committed to neqo.
+
+## Running clippy (same NSS setup)
+
+neqo's CI is `cargo clippy --locked --all-targets --no-default-features --
+-D warnings`, run per crate. With the NSS env from step 5 exported
+(`NSS_DIR`, `NSS_PREBUILT`, `LIBCLANG_PATH`, `PATH`), the exact CI check runs
+locally, e.g.:
+
+```sh
+cargo clippy --locked --all-targets --manifest-path neqo-http3/Cargo.toml \
+  --no-default-features -- -D warnings
+```
+
+Shortcut: `neqo-common` has no NSS dependency, so `cargo clippy -p neqo-common`
+(and 32-bit `rustup target add i686-unknown-linux-gnu` +
+`--target i686-unknown-linux-gnu`) needs none of the NSS scaffolding. It holds
+the `usize`/`u64` conversion code and the pointer-width assumptions, so it is
+the cheap first check for 32-bit / cast breakage.
+
+Verified 2026-07: with NSS built (gyp via `pip install gyp-next`; if the
+firefox checkout is absent, `nss-rs` will clone NSS+NSPR itself via `hg`, which
+needs `pip install mercurial` and, in the web sandbox, a `~/.hgrc`
+`[http_proxy] host = ${HTTPS_PROXY#http://}` pointing at the egress proxy whose
+PORT changes every container restart), clippy runs clean per crate.
