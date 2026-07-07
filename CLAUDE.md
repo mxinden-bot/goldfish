@@ -119,6 +119,9 @@ below, and **append anything durable you learn** so the next session benefits to
   descriptive commit before (or when) pushing, even after a back-and-forth of
   review fixes. Use `git reset --soft <base>` then recommit, and
   `git push --force-with-lease`.
+- Presenting bugs, results, or references: include clickable links wherever
+  possible (Bugzilla bug URLs, dashboards, docs, source), never a bare bug
+  number. Max wants to click straight through.
 
 <!-- Append stable preferences as you learn them. -->
 
@@ -139,6 +142,9 @@ below, and **append anything durable you learn** so the next session benefits to
 - Necko (Core :: Networking*) bugs: add the `[necko-triaged]` whiteboard, so set
   `status_whiteboard=[necko-triaged]` on the prefilled URL. Match what related
   necko bugs use (e.g. the [meta] Happy Eyeballs v3 bug, 1953459, carries it).
+- Running a Necko triage pass (fetch the untriaged queue, triage criteria,
+  severity/priority shorthand, common mis-filings, finding the regressor):
+  `references/necko-triage.md`. Dashboard: https://mozilla-necko.github.io/necko-triage/
 - Loading this memory: in Claude Code (web/CLI) it auto-loads via CLAUDE.md when
   the repo is included. On surfaces that do not auto-load it (normal claude.ai
   chats), paste `portable.md` into Personalization or a Project's instructions.
@@ -171,3 +177,11 @@ below, and **append anything durable you learn** so the next session benefits to
   `.unwrap()` in a `fn -> Result` trips `unwrap_in_result`, and `#[allow]` trips
   `allow_attributes` (use `#[expect]`). Chasing these one-per-CI-round wastes time. A
   function-level `#[expect(lint)]` does cover casts in `const` items nested in that fn.
+- The web-session `/home/user/firefox` checkout is a shallow squashed snapshot
+  (~50 commits, one per file), so local `git blame`/`git log` are worthless for
+  authorship (every line maps to an unrelated squash commit). For the real
+  author/regressor use upstream hg annotate/log
+  (`hg.mozilla.org/mozilla-central/annotate|log/tip/<path>`, which 302s to
+  hg-edge; follow it), searchfox blame, or Bugzilla `regressed_by`.
+  `searchfox-cli` is also not on PATH in web sessions. See
+  `references/necko-triage.md`.

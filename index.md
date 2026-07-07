@@ -16,4 +16,5 @@ add, move, or remove a file, update this index in the same commit.
 ## References
 
 - `references/bugzilla-prefill-url.md`: build a pre-filled `bugzilla.mozilla.org` enter_bug.cgi URL.
+- `references/necko-triage.md`: run a Necko triage pass (untriaged queue query, criteria, mis-filings, regressor lookup).
 - `references/neqo-cargo-test-in-web-sandbox.md`: build and `cargo test` mozilla/neqo in a web sandbox (git blocked, NSS needed).
