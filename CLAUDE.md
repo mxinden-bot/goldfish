@@ -139,6 +139,8 @@ below, and **append anything durable you learn** so the next session benefits to
   a ready-to-click `enter_bug.cgi` URL with the fields pre-filled so he opens it,
   reviews, and clicks Save/Submit. He only uses `bugzilla.mozilla.org`. Parameter
   reference and example: `references/bugzilla-prefill-url.md`.
+- Always pre-set new bugs to ASSIGNED and assign them to Max, so the prefilled
+  URL carries `bug_status=ASSIGNED&assigned_to=mail@max-inden.de`.
 - Necko (Core :: Networking*) bugs: add the `[necko-triaged]` whiteboard, so set
   `status_whiteboard=[necko-triaged]` on the prefilled URL. Match what related
   necko bugs use (e.g. the [meta] Happy Eyeballs v3 bug, 1953459, carries it).

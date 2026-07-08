@@ -42,6 +42,11 @@ guided or simplified form and you want the full standard entry form instead.
 | Custom field        | `cf_<name>`         | Only if the field has the enter_bug flag.|
 | Entry template      | `format`            | Selects which entry template loads.     |
 
+## Defaults for Max
+
+- Always pre-set the bug to ASSIGNED and assign it to Max:
+  `bug_status=ASSIGNED&assigned_to=mail@max-inden.de`.
+
 ## Gotchas
 
 - Always include `product` (and `classification` if the instance uses them), or
