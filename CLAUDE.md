@@ -122,6 +122,11 @@ below, and **append anything durable you learn** so the next session benefits to
 - Presenting bugs, results, or references: include clickable links wherever
   possible (Bugzilla bug URLs, dashboards, docs, source), never a bare bug
   number. Max wants to click straight through.
+- Writing style: Max aspires to Orwell's "Politics and the English Language"
+  rules (cut dead words, short plain word over long, active over passive, no
+  stale metaphors or jargon, and never a rule at the cost of clumsiness). Apply
+  this to prose written for or as him: commits, PRs, docs, this memory. The six
+  rules verbatim: `references/orwell-writing-rules.md`.
 
 <!-- Append stable preferences as you learn them. -->
 
