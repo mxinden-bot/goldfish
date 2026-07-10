@@ -76,6 +76,18 @@ below, and **append anything durable you learn** so the next session benefits to
    anything: prose, commit messages, code, PRs, or this file. Rephrase with a
    colon, comma, parentheses, or two sentences instead.
 
+6. **Name a thing, attach its link.** Whenever you mention a bug, PR, issue,
+   GLAM/telemetry probe or metric, dashboard, spec or IETF draft, doc, or source
+   file, include its clickable URL inline: never a bare name or number. Applies
+   to chat replies AND to anything written as Max (issues, PRs, docs). Max wants
+   to click straight through, and repeatedly has to remind past sessions to do
+   this: treat a missing link as a bug in your reply. Common ones:
+   - GLAM probe: `https://glam.telemetry.mozilla.org/fog/probe/<probe>/explore`
+     (e.g. `netwerk_happy_eyeballs_end_to_end_time_succeeded`); strip query
+     params unless a specific view is needed.
+   - Bugzilla: `https://bugzilla.mozilla.org/show_bug.cgi?id=<id>`.
+   - Phabricator: `https://phabricator.services.mozilla.com/D<id>`.
+
 ---
 
 ## How to maintain this file
@@ -119,9 +131,6 @@ below, and **append anything durable you learn** so the next session benefits to
   descriptive commit before (or when) pushing, even after a back-and-forth of
   review fixes. Use `git reset --soft <base>` then recommit, and
   `git push --force-with-lease`.
-- Presenting bugs, results, or references: include clickable links wherever
-  possible (Bugzilla bug URLs, dashboards, docs, source), never a bare bug
-  number. Max wants to click straight through.
 - Writing style: Max aspires to Orwell's "Politics and the English Language"
   rules (cut dead words, short plain word over long, active over passive, no
   stale metaphors or jargon, and never a rule at the cost of clumsiness). Apply
