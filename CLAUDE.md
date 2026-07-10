@@ -161,6 +161,11 @@ below, and **append anything durable you learn** so the next session benefits to
 - Running a Necko triage pass (fetch the untriaged queue, triage criteria,
   severity/priority shorthand, common mis-filings, finding the regressor):
   `references/necko-triage.md`. Dashboard: https://mozilla-necko.github.io/necko-triage/
+- Reading Firefox telemetry from GLAM's public API (percentiles, label shares,
+  probe naming, plus the performance.mozilla.org Redash CSVs): full recipe in
+  `references/glam-telemetry.md`. The trap: for a metric gated on an OS feature,
+  `os:"*"` is buried by the majority OS (Windows), so filter (e.g. `os:"Linux"`
+  for GSO/GRO offload). Verified 2026-07.
 - Loading this memory: in Claude Code (web/CLI) it auto-loads via CLAUDE.md when
   the repo is included. On surfaces that do not auto-load it (normal claude.ai
   chats), paste `portable.md` into Personalization or a Project's instructions.

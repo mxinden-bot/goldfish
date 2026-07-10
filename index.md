@@ -19,3 +19,4 @@ add, move, or remove a file, update this index in the same commit.
 - `references/necko-triage.md`: run a Necko triage pass (untriaged queue query, criteria, mis-filings, regressor lookup).
 - `references/orwell-writing-rules.md`: Orwell's six rules from "Politics and the English Language", verbatim. The writing style Max aspires to.
 - `references/neqo-cargo-test-in-web-sandbox.md`: build and `cargo test` mozilla/neqo in a web sandbox (git blocked, NSS needed).
+- `references/glam-telemetry.md`: read Firefox Glean metrics from GLAM's public API (percentiles, label shares, the OS-filter trap, probe naming, performance.mozilla.org CSVs).
