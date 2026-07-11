@@ -157,7 +157,8 @@ below, and **append anything durable you learn** so the next session benefits to
   URL carries `bug_status=ASSIGNED&assigned_to=mail@max-inden.de`.
 - Necko (Core :: Networking*) bugs: add the `[necko-triaged]` whiteboard, so set
   `status_whiteboard=[necko-triaged]` on the prefilled URL. Match what related
-  necko bugs use (e.g. the [meta] Happy Eyeballs v3 bug, 1953459, carries it).
+  necko bugs use (e.g. the [meta] Happy Eyeballs v3 bug,
+  https://bugzilla.mozilla.org/show_bug.cgi?id=1953459, carries it).
 - Running a Necko triage pass (fetch the untriaged queue, triage criteria,
   severity/priority shorthand, common mis-filings, finding the regressor):
   `references/necko-triage.md`. Dashboard: https://mozilla-necko.github.io/necko-triage/
