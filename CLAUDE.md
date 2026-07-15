@@ -207,3 +207,20 @@ below, and **append anything durable you learn** so the next session benefits to
   hg-edge; follow it), searchfox blame, or Bugzilla `regressed_by`.
   `searchfox-cli` is also not on PATH in web sessions. See
   `references/necko-triage.md`.
+- Syncing a `mxinden-bot` fork's `main` with upstream in a web session (rule 4
+  above): `origin` is rewritten through a local git proxy scoped to
+  `mxinden-bot/*` (`insteadOf = https://github.com/` in the global gitconfig),
+  so a genuine `upstream` remote cannot reach `github.com/mozilla/...` etc.
+  Reach it per-command with `GIT_CONFIG_GLOBAL=/dev/null git fetch
+  <upstream-url> main`. The session repos are shallow clones, so a plain
+  `--depth 1` fetch of upstream's tip has no shared history with the fork's
+  current `origin/main`, and the push is rejected as non-fast-forward even
+  when the fork is genuinely just behind (no real divergence). `--shallow-exclude=<fork-tip-sha>`
+  looks like the fix but fails against this proxy (`fatal: expected
+  'acknowledgments'`). What works: fetch `--depth 1`, then loop `git fetch
+  <upstream-url> main --deepen=N` with growing `N` until `git merge-base
+  --is-ancestor origin/main FETCH_HEAD` succeeds, then `git push origin
+  FETCH_HEAD:refs/heads/main` (plain, no force). Verified 2026-07 syncing
+  neqo, quinn, and firefox (mozilla-central was ~1300 commits behind; the
+  three deepen steps only grew `firefox/.git` from 1.1G to 1.2G, so this is
+  cheap even for a big repo).
