@@ -191,9 +191,11 @@ below, and **append anything durable you learn** so the next session benefits to
 <!-- Mistakes to not repeat; gotchas; things that surprised a past session. -->
 
 - neqo lints are strict (`-D warnings`), so run clippy locally before pushing neqo
-  patches (same NSS setup as `references/neqo-cargo-test-in-web-sandbox.md`;
-  `cargo clippy --locked --all-targets --no-default-features -- -D warnings` per
-  crate, matching neqo's CI exactly). Reverting
+  patches (same NSS setup as `references/neqo-cargo-test-in-web-sandbox.md`). Use the
+  clippy version CI uses: it runs on **nightly**, which catches lints stable misses
+  (e.g. `redundant_else`). `rustup component add clippy --toolchain nightly`, then
+  `cargo +nightly clippy --locked --all-targets --no-default-features -- -D warnings`
+  per crate. Reverting
   an old upstream patch verbatim often fails *today's* clippy: bare `u64 as usize` trips
   `cast_possible_truncation`, `x as u64` trips `cast_lossless` (use `u64::from`/`to_u64`),
   `.unwrap()` in a `fn -> Result` trips `unwrap_in_result`, and `#[allow]` trips

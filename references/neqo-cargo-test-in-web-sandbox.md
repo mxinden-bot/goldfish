@@ -77,15 +77,22 @@ Toolchain already present: `cargo`, `clang`/`libclang-18`, `ninja`, `cc`,
 
 ## Running clippy (same NSS setup)
 
-neqo's CI is `cargo clippy --locked --all-targets --no-default-features --
--D warnings`, run per crate. With the NSS env from step 5 exported
-(`NSS_DIR`, `NSS_PREBUILT`, `LIBCLANG_PATH`, `PATH`), the exact CI check runs
-locally, e.g.:
+Use the RIGHT clippy: neqo's CI runs clippy on **nightly**, which fires lints a
+stable clippy misses (e.g. `redundant_else`, and it detects more
+`cast_possible_truncation`/`redundant`-style cases). Running stable clippy gives
+false green and wastes a CI round. Install and use nightly:
 
 ```sh
-cargo clippy --locked --all-targets --manifest-path neqo-http3/Cargo.toml \
-  --no-default-features -- -D warnings
+rustup component add clippy --toolchain nightly
+# exact CI check, per crate, with the NSS env from step 5 exported
+# (NSS_DIR, NSS_PREBUILT, LIBCLANG_PATH, PATH):
+cargo +nightly clippy --locked --all-targets \
+  --manifest-path neqo-http3/Cargo.toml --no-default-features -- -D warnings
 ```
+
+CI also runs the full feature matrix via `cargo hack clippy --feature-powerset`;
+the per-crate `--no-default-features` run above catches most issues, but a lint
+can hide behind a feature, so run default features too if in doubt.
 
 Shortcut: `neqo-common` has no NSS dependency, so `cargo clippy -p neqo-common`
 (and 32-bit `rustup target add i686-unknown-linux-gnu` +
