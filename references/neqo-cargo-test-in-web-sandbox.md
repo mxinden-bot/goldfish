@@ -77,18 +77,31 @@ Toolchain already present: `cargo`, `clang`/`libclang-18`, `ninja`, `cc`,
 
 ## Running clippy (same NSS setup)
 
-Use the RIGHT clippy: neqo's CI runs clippy on **nightly**, which fires lints a
-stable clippy misses (e.g. `redundant_else`, and it detects more
-`cast_possible_truncation`/`redundant`-style cases). Running stable clippy gives
-false green and wastes a CI round. Install and use nightly:
+Use the RIGHT clippy, and the RIGHT (latest) nightly. neqo's CI runs clippy on
+a **rolling `nightly`**, so it uses whatever nightly is current the day CI runs.
+A stable clippy gives false green; so does a nightly that is even a couple of
+weeks stale, because new lints land constantly. Update first, then run:
 
 ```sh
+rustup update nightly            # <-- do NOT skip: get the newest nightly, matching CI
 rustup component add clippy --toolchain nightly
 # exact CI check, per crate, with the NSS env from step 5 exported
 # (NSS_DIR, NSS_PREBUILT, LIBCLANG_PATH, PATH):
 cargo +nightly clippy --locked --all-targets \
   --manifest-path neqo-http3/Cargo.toml --no-default-features -- -D warnings
 ```
+
+Concrete trap (2026-07): a pinned nightly 0.1.98 (2026-06-30) reported clean
+across the workspace, but CI on nightly 0.1.99 (2026-07-14) failed. The two
+weeks between them added `redundant_else` firing on `if let { .. } else { .. }`
+where the `if` branch diverges (`neqo-http3/src/stream_type_reader.rs`), and
+`mut_mut` on `mem::swap(&mut a, &mut b)` where `a`/`b` are already `&mut`
+(`test-fixture/src/lib.rs`, `neqo-transport/src/connection/tests/mod.rs`). These
+were pre-existing upstream code, not from the patch under test: a rolling-nightly
+CI still fails the whole run on them, and upstream fixes them in their own churn
+PR (here, mozilla/neqo#3811). So when clippy fails on code your patch never
+touched, confirm it against `upstream/main` and look for an upstream fix PR
+before folding unrelated lint changes into your own patch.
 
 CI also runs the full feature matrix via `cargo hack clippy --feature-powerset`;
 the per-crate `--no-default-features` run above catches most issues, but a lint

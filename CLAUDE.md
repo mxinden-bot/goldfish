@@ -192,10 +192,20 @@ below, and **append anything durable you learn** so the next session benefits to
 
 - neqo lints are strict (`-D warnings`), so run clippy locally before pushing neqo
   patches (same NSS setup as `references/neqo-cargo-test-in-web-sandbox.md`). Use the
-  clippy version CI uses: it runs on **nightly**, which catches lints stable misses
-  (e.g. `redundant_else`). `rustup component add clippy --toolchain nightly`, then
+  clippy version CI uses: it runs on the **latest nightly** (CI's toolchain is a rolling
+  `nightly`, so it picks up whatever nightly is current the day it runs), which catches
+  lints stable misses (e.g. `redundant_else`). Two steps, both needed: install the
+  component *and* update to the newest nightly first, because a stale pinned nightly
+  silently misses lints CI enforces. `rustup update nightly && rustup component add
+  clippy --toolchain nightly`, then
   `cargo +nightly clippy --locked --all-targets --no-default-features -- -D warnings`
-  per crate. Reverting
+  per crate. (Verified 2026-07: a nightly only ~2 weeks old, 0.1.98/2026-06-30, showed
+  clean while CI's 0.1.99/2026-07-14 failed: that fortnight added `redundant_else` on
+  `if let {..} else {..}` where the `if` diverges, and `mut_mut` on
+  `mem::swap(&mut a, &mut b)` where `a`/`b` are already `&mut`. Both were pre-existing
+  upstream code, unrelated to the patch under test, but a rolling-nightly CI fails the
+  whole run on them: check `git log`/open PRs for an upstream churn-fix PR rather than
+  folding unrelated lint fixes into your patch.) Reverting
   an old upstream patch verbatim often fails *today's* clippy: bare `u64 as usize` trips
   `cast_possible_truncation`, `x as u64` trips `cast_lossless` (use `u64::from`/`to_u64`),
   `.unwrap()` in a `fn -> Result` trips `unwrap_in_result`, and `#[allow]` trips
