@@ -190,6 +190,14 @@ below, and **append anything durable you learn** so the next session benefits to
 
 <!-- Mistakes to not repeat; gotchas; things that surprised a past session. -->
 
+- neqo CI runs `rustfmt` as a **separate job from clippy**, so run both before pushing:
+  a green clippy does not imply a green fmt. Formatting rules (line width, wrapping) are
+  invisible to clippy even at `-D warnings --all-targets`. rustfmt here needs nightly too
+  (neqo uses unstable options): `cargo +nightly fmt --check` (or `cargo +nightly fmt` to
+  apply). Verified 2026-07: reverting `to_usize(CAP)` to the longer
+  `usize::try_from(CAP).unwrap()` pushed one line past the width limit: clippy stayed
+  clean, but the fmt job failed on it. Cheap to check, easy to forget after a
+  clippy-only sweep.
 - neqo lints are strict (`-D warnings`), so run clippy locally before pushing neqo
   patches (same NSS setup as `references/neqo-cargo-test-in-web-sandbox.md`). Use the
   clippy version CI uses: it runs on the **latest nightly** (CI's toolchain is a rolling
