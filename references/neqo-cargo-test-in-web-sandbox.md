@@ -99,7 +99,7 @@ where the `if` branch diverges (`neqo-http3/src/stream_type_reader.rs`), and
 (`test-fixture/src/lib.rs`, `neqo-transport/src/connection/tests/mod.rs`). These
 were pre-existing upstream code, not from the patch under test: a rolling-nightly
 CI still fails the whole run on them, and upstream fixes them in their own churn
-PR (here, mozilla/neqo#3811). So when clippy fails on code your patch never
+PR (here, https://github.com/mozilla/neqo/pull/3811). So when clippy fails on code your patch never
 touched, confirm it against `upstream/main` and look for an upstream fix PR
 before folding unrelated lint changes into your own patch.
 

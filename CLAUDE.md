@@ -199,34 +199,15 @@ below, and **append anything durable you learn** so the next session benefits to
   clean, but the fmt job failed on it. Cheap to check, easy to forget after a
   clippy-only sweep.
 - neqo lints are strict (`-D warnings`), so run clippy locally before pushing neqo
-  patches (same NSS setup as `references/neqo-cargo-test-in-web-sandbox.md`). Use the
-  clippy version CI uses: it runs on the **latest nightly** (CI's toolchain is a rolling
-  `nightly`, so it picks up whatever nightly is current the day it runs), which catches
-  lints stable misses (e.g. `redundant_else`). Two steps, both needed: install the
-  component *and* update to the newest nightly first, because a stale pinned nightly
-  silently misses lints CI enforces. `rustup update nightly && rustup component add
-  clippy --toolchain nightly`, then
-  `cargo +nightly clippy --locked --all-targets --no-default-features -- -D warnings`
-  per crate. (Verified 2026-07: a nightly only ~2 weeks old, 0.1.98/2026-06-30, showed
-  clean while CI's 0.1.99/2026-07-14 failed: that fortnight added `redundant_else` on
-  `if let {..} else {..}` where the `if` diverges, and `mut_mut` on
-  `mem::swap(&mut a, &mut b)` where `a`/`b` are already `&mut`. Both were pre-existing
-  upstream code, unrelated to the patch under test, but a rolling-nightly CI fails the
-  whole run on them: check `git log`/open PRs for an upstream churn-fix PR rather than
-  folding unrelated lint fixes into your patch.) Reverting
-  an old upstream patch verbatim often fails *today's* clippy: bare `u64 as usize` trips
-  `cast_possible_truncation`, `x as u64` trips `cast_lossless` (use `u64::from`/`to_u64`),
-  `.unwrap()` in a `fn -> Result` trips `unwrap_in_result`, and `#[allow]` trips
-  `allow_attributes` (use `#[expect]`). Chasing these one-per-CI-round wastes time. A
-  function-level `#[expect(lint)]` does cover casts in `const` items nested in that fn.
-- The web-session `/home/user/firefox` checkout is a shallow squashed snapshot
-  (~50 commits, one per file), so local `git blame`/`git log` are worthless for
-  authorship (every line maps to an unrelated squash commit). For the real
-  author/regressor use upstream hg annotate/log
-  (`hg.mozilla.org/mozilla-central/annotate|log/tip/<path>`, which 302s to
-  hg-edge; follow it), searchfox blame, or Bugzilla `regressed_by`.
-  `searchfox-cli` is also not on PATH in web sessions. See
-  `references/necko-triage.md`.
+  patches, using the same nightly CI uses (CI's toolchain is a rolling `nightly`, so a
+  stale local one gives false green): `rustup update nightly` before every check, not
+  just once. Reverting an old upstream patch verbatim often fails today's clippy too
+  (cast lints, `unwrap_in_result`, `allow_attributes`). Full recipe, exact commands, and
+  the 2026-07 concrete trap: `references/neqo-cargo-test-in-web-sandbox.md` ("Running
+  clippy").
+- The web-session `/home/user/firefox` checkout is a shallow squashed snapshot, so local
+  `git blame`/`git log` are worthless for authorship. Use upstream hg or searchfox
+  instead: `references/necko-triage.md` ("Finding the author / regressor").
 - Syncing a `mxinden-bot` fork's `main` with upstream in a web session (rule 4
   above): `origin` is rewritten through a local git proxy scoped to
   `mxinden-bot/*` (`insteadOf = https://github.com/` in the global gitconfig),
