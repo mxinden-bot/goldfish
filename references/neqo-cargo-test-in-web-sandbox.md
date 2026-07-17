@@ -64,6 +64,26 @@ Toolchain already present: `cargo`, `clang`/`libclang-18`, `ninja`, `cc`,
    First compile is ~1 to 2 minutes (bindgen plus deps from crates.io, which is
    reachable). Verified end to end: `neqo-transport` unit tests build and run.
 
+## Shortcut when neqo is a provided session repo
+
+When neqo is one of the session's own repos it is already cloned and its
+`nss-rs` git dep is already resolved, so steps 1 to 3 (tarball vendoring, the
+`[patch]` block) are unnecessary. You can also skip the manual `build.sh` and
+`NSS_PREBUILT`: point `NSS_DIR` at the copied NSS *source* and `nss-rs`'s
+`build.rs` runs `build.sh` for you (same flags), rebuilding incrementally via
+ninja on later runs. `LIBCLANG_PATH` was not needed either. One shot:
+
+```sh
+pip install gyp-next
+mkdir -p ~/nssbuild
+cp -r ~/firefox/security/nss ~/nssbuild/nss
+cp -r ~/firefox/nsprpub      ~/nssbuild/nspr   # sibling of nss/
+cd ~/neqo && NSS_DIR=~/nssbuild/nss cargo test -p neqo-transport --lib
+```
+
+NSS builds into `~/nssbuild/dist`, so the firefox tree stays clean. Verified
+2026-07: 768 `neqo-transport` lib tests build and pass this way.
+
 ## Gotchas
 
 - `--static` is required. `cargo test` uses the dev/debug profile, and `nss-rs`
