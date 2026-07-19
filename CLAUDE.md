@@ -149,6 +149,11 @@ below, and **append anything durable you learn** so the next session benefits to
   working recipe (vendor `nss-rs` over HTTPS, `[patch]` it in, build NSS from the
   firefox checkout, set `NSS_DIR`/`NSS_PREBUILT`): see
   `references/neqo-cargo-test-in-web-sandbox.md`. Verified 2026-07.
+- Running a prebuilt Firefox (not a build) in a web sandbox to watch network-stack
+  behavior (DNS, TRR/DoH, HTTPS RR): five sandbox gotchas (TLS MITM, the proxy
+  hijacking Firefox, offline/captive-portal detection, socket-process logging,
+  unreliable headless navigation) plus a Marionette driving recipe: see
+  `references/run-firefox-in-web-sandbox.md`. Verified 2026-07.
 - Bugzilla bugs: when Max asks to draft one, do not return prose to paste. Build
   a ready-to-click `enter_bug.cgi` URL with the fields pre-filled so he opens it,
   reviews, and clicks Save/Submit. He only uses `bugzilla.mozilla.org`. Parameter
