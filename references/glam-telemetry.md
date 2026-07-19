@@ -99,6 +99,11 @@ configs with per-query `api_key`s in its inline HTML. Pull the CSV directly:
 curl "https://sql.telemetry.mozilla.org/api/queries/<ID>/results.csv?api_key=<KEY>"
 ```
 
-Query IDs: 113403 HTTP-version share (H3 %), 114600 desktop time-to-request-start
-by version, 115316 Fenix TTRS, 121688 DNS lookup P75/P95 DoH vs OS. Keys rotate:
-on a 403, re-scrape the page HTML for the current key.
+Query IDs (link is the query page, not the CSV; swap in the current `api_key`
+from the page HTML for the CSV endpoint above):
+- HTTP-version share (H3 %): https://sql.telemetry.mozilla.org/queries/113403
+- Desktop time-to-request-start by version: https://sql.telemetry.mozilla.org/queries/114600
+- Fenix TTRS: https://sql.telemetry.mozilla.org/queries/115316
+- DNS lookup P75/P95 DoH vs OS: https://sql.telemetry.mozilla.org/queries/121688
+
+Keys rotate: on a 403, re-scrape the page HTML for the current key.
