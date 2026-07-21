@@ -109,7 +109,7 @@ Useful `MOZ_LOG` modules: `nsHostResolver:5,TRR:5` (add `sync` so lines flush).
 Grep the parent `*.moz_log` for `AliasForm host X => Y` (alias decoded),
 `NameLookup ... effectiveTRRmode`, and the final `dnsNotFound`/`UNKNOWN_HOST`.
 
-## What the HTTPS RR AliasMode test showed (bug 1869075)
+## What the HTTPS RR AliasMode test showed ([bug 1869075](https://bugzilla.mozilla.org/show_bug.cgi?id=1869075))
 
 Same result in both DoH and native mode:
 
@@ -123,4 +123,5 @@ Same result in both DoH and native mode:
 
 Takeaway: Firefox parses AliasMode and follows it only to fetch the HTTPS
 SvcParams; it does not move address resolution to the alias target. A pure-alias
-apex (the RFC 9460 intent) therefore fails unless the apex also serves A/AAAA.
+apex (the [RFC 9460](https://www.rfc-editor.org/rfc/rfc9460) intent) therefore
+fails unless the apex also serves A/AAAA.
