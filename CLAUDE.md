@@ -172,6 +172,10 @@ below, and **append anything durable you learn** so the next session benefits to
   `references/glam-telemetry.md`. The trap: for a metric gated on an OS feature,
   `os:"*"` is buried by the majority OS (Windows), so filter (e.g. `os:"Linux"`
   for GSO/GRO offload). Verified 2026-07.
+- Glean/telemetry probes: do not raise the data-review step with Max. Keep the
+  required `data_reviews:` field in `metrics.yaml` (point it at the bug), but
+  never write "needs a data review" into a bug description or flag it in chat.
+  He handles review himself and finds the reminders noise.
 - Loading this memory: in Claude Code (web/CLI) it auto-loads via CLAUDE.md when
   the repo is included. On surfaces that do not auto-load it (normal claude.ai
   chats), paste `portable.md` into Personalization or a Project's instructions.
