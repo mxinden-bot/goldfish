@@ -222,11 +222,12 @@ below, and **append anything durable you learn** so the next session benefits to
   syncing neqo, quinn, and firefox.
 - Firefox necko code review: do NOT tag the group `r?#necko-reviewers` in commit
   messages (and ignore firefox `AGENTS.md`'s generic `r?#group-name` advice for
-  necko): `moz-phab submit` rejects it every time. Request individuals instead.
-  Authoritative roster is `mots.yaml`, module `core_necko`: owner `valentin`
-  (Valentin Gosu), peers `kershaw` (Kershaw Chang), `jesup` (Randell Jesup),
-  `sunil` (Sunil Mayya). Max's usual picks: `kershaw`, `valentin`, `leggett`.
-  (The `#necko-reviewers` Phabricator group does exist and
-  https://phabricator.services.mozilla.com/tag/necko-reviewers/ resolves, so it
-  is not a missing-group problem; the exact moz-phab rejection cause is
-  unconfirmed, so capture the error text next time.) Verified 2026-08.
+  necko): `moz-phab submit` rejects it. You never needed it anyway: Herald
+  auto-adds `#necko-reviewers` to any revision touching `netwerk/` paths, so just
+  name an individual and the group attaches itself. Confirmed 2026-08 on
+  https://phabricator.services.mozilla.com/D315875: commit message said only
+  `r?valentin`, yet the revision came up with reviewers `valentin` AND
+  `necko-reviewers`. Individuals to name (authoritative roster is `mots.yaml`,
+  module `core_necko`): owner `valentin` (Valentin Gosu), peers `kershaw`
+  (Kershaw Chang), `jesup` (Randell Jesup), `sunil` (Sunil Mayya). Max's usual
+  picks: `kershaw`, `valentin`, `leggett`.
