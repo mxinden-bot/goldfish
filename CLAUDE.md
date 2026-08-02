@@ -220,3 +220,13 @@ below, and **append anything durable you learn** so the next session benefits to
   deepen-loop past the shallow boundary, plain fast-forward push): see
   `references/sync-fork-with-upstream-web-sandbox.md`. Verified 2026-07
   syncing neqo, quinn, and firefox.
+- Firefox necko code review: do NOT tag the group `r?#necko-reviewers` in commit
+  messages (and ignore firefox `AGENTS.md`'s generic `r?#group-name` advice for
+  necko): `moz-phab submit` rejects it every time. Request individuals instead.
+  Authoritative roster is `mots.yaml`, module `core_necko`: owner `valentin`
+  (Valentin Gosu), peers `kershaw` (Kershaw Chang), `jesup` (Randell Jesup),
+  `sunil` (Sunil Mayya). Max's usual picks: `kershaw`, `valentin`, `leggett`.
+  (The `#necko-reviewers` Phabricator group does exist and
+  https://phabricator.services.mozilla.com/tag/necko-reviewers/ resolves, so it
+  is not a missing-group problem; the exact moz-phab rejection cause is
+  unconfirmed, so capture the error text next time.) Verified 2026-08.
