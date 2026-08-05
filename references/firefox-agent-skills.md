@@ -14,11 +14,15 @@ plugins instead (`firefox-aidev-plugins`, `aidev-plugins`, both by mozilla).
 Skill descriptions load into every session's context, so that boundary is
 deliberate: do not propose adding a narrow one to `.agents/skills/` upstream.
 
-`bug-filing`'s `allowed-tools` lists both `.agents/skills/bug-filing/...` and
-`.claude/skills/bug-filing/...` paths, implying a `.claude/skills` mirror so
-Claude Code auto-discovers these in a firefox checkout session. Not yet
-confirmed by inspecting an actual checkout (none was available when this was
-written); confirm next time one is, and fix this note if it needs adjusting.
+Confirmed 2026-08 on Max's own fork (`mxinden-bot/firefox`, e.g. the
+`claude/neqo-firefox-downstream-8ijmvc` branch): `.claude/skills` is a real,
+browsable mirror of `.agents/skills`, with working `SKILL.md` files at paths
+like `.claude/skills/bug-filing/SKILL.md`. So a firefox checkout used from
+Claude Code auto-discovers these skills, no extra setup needed. Checked by
+fetching `raw.githubusercontent.com/mxinden-bot/firefox/<branch>/.claude/...`
+with WebFetch, same trick as fetching upstream's `.agents/skills/` above:
+works even when the session's GitHub MCP scope excludes that repo entirely,
+since these are public pages.
 
 ## Prefer these over goldfish's own recipes, when a firefox checkout is present
 

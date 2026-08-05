@@ -195,7 +195,7 @@ below, and **append anything durable you learn** so the next session benefits to
   `netwerk/socket/neqo_glue/src/lib.rs` (client; cbindgen -> `Http3Session.cpp`); the
   `http3server` test binary uses neqo's server-side API. Verify with `./mach build`.
 - Firefox ships an in-tree agent skills catalog (`.agents/skills/`, mirrored to
-  `.claude/skills/` so Claude Code should auto-load them in a firefox checkout
+  `.claude/skills/` so Claude Code auto-loads them in a firefox checkout
   session): bug filing, reviewer lookup, profiler analysis, spec-to-code
   mapping, jj-based patch cleanup, and more. Prefer these over goldfish's own
   recipes when working inside an actual checkout. Full catalog and
