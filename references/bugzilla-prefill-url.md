@@ -5,6 +5,12 @@ that opens `enter_bug.cgi` with the fields already filled in, so he clicks it,
 glances over it, and presses Save/Submit. Bugzilla reads these fields straight
 from the query string.
 
+Inside an actual firefox checkout, prefer the in-tree `bug-filing` /
+`file-good-first-bug` skills instead: they do the same thing but pick the
+component via `mach file-info`, so it stays current. Use this recipe when
+there is no checkout (e.g. filing against neqo or another repo). See
+`references/firefox-agent-skills.md`.
+
 ## Endpoint
 
     https://bugzilla.mozilla.org/enter_bug.cgi?product=...&component=...&short_desc=...&comment=...

@@ -22,3 +22,4 @@ add, move, or remove a file, update this index in the same commit.
 - `references/glam-telemetry.md`: read Firefox Glean metrics from GLAM's public API (percentiles, label shares, the OS-filter trap, probe naming, performance.mozilla.org CSVs).
 - `references/run-firefox-in-web-sandbox.md`: run a prebuilt Firefox headless in a web session (proxy/MITM/offline/socket-process gotchas, Marionette driver, MOZ_LOG) to observe network-stack behavior.
 - `references/sync-fork-with-upstream-web-sandbox.md`: fast-forward a mxinden-bot fork's `main` to upstream in a web sandbox (proxy-blocked upstream remote, shallow-clone deepen loop).
+- `references/firefox-agent-skills.md`: catalog of Firefox's in-tree `.agents/skills/` (bug filing, reviewer lookup, profiler analysis, spec-to-code mapping, and more), with cross-references to what overlaps in this repo.

@@ -194,6 +194,13 @@ below, and **append anything durable you learn** so the next session benefits to
   `supply-chain/audits.toml` git-delta audit on each bump. Glue lives in
   `netwerk/socket/neqo_glue/src/lib.rs` (client; cbindgen -> `Http3Session.cpp`); the
   `http3server` test binary uses neqo's server-side API. Verify with `./mach build`.
+- Firefox ships an in-tree agent skills catalog (`.agents/skills/`, mirrored to
+  `.claude/skills/` so Claude Code should auto-load them in a firefox checkout
+  session): bug filing, reviewer lookup, profiler analysis, spec-to-code
+  mapping, jj-based patch cleanup, and more. Prefer these over goldfish's own
+  recipes when working inside an actual checkout. Full catalog and
+  cross-references to what overlaps in this repo:
+  `references/firefox-agent-skills.md`. Checked 2026-08.
 
 ## Lessons learned
 
@@ -234,4 +241,6 @@ below, and **append anything durable you learn** so the next session benefits to
   `necko-reviewers`. Individuals to name (authoritative roster is `mots.yaml`,
   module `core_necko`): owner `valentin` (Valentin Gosu), peers `kershaw`
   (Kershaw Chang), `jesup` (Randell Jesup), `sunil` (Sunil Mayya). Max's usual
-  picks: `kershaw`, `valentin`, `leggett`.
+  picks: `kershaw`, `valentin`, `leggett`. Firefox's in-tree `find-reviewer`
+  skill can look this up live via `mach` inside a checkout; see
+  `references/firefox-agent-skills.md`.
