@@ -10,7 +10,9 @@ target, treat this as a snapshot and re-check the directory for additions.
 
 Per the directory's own README, in-tree skills are reserved for "broadly
 useful, tree-wide workflows"; component-specific ones belong in marketplace
-plugins instead (`firefox-aidev-plugins`, `aidev-plugins`, both by mozilla).
+plugins instead
+([`firefox-aidev-plugins`](https://github.com/mozilla/firefox-aidev-plugins),
+[`aidev-plugins`](https://github.com/mozilla/aidev-plugins), both by mozilla).
 Skill descriptions load into every session's context, so that boundary is
 deliberate: do not propose adding a narrow one to `.agents/skills/` upstream.
 
@@ -36,8 +38,9 @@ since these are public pages.
 - `find-reviewer`: fills `r=` from `./mach file-info reviewers` (Herald group
   data first, VCS history fallback). Complements, does not replace, the necko
   reviewer roster in CLAUDE.md's "Lessons learned": that note explains *why*
-  (`mots.yaml`, module `core_necko`) and carries Max's personal picks, which
-  the skill has no way to know.
+  ([`mots.yaml`](https://searchfox.org/mozilla-central/source/mots.yaml),
+  module `core_necko`) and carries Max's personal picks, which the skill has
+  no way to know.
   https://github.com/mozilla-firefox/firefox/blob/main/.agents/skills/find-reviewer/SKILL.md
 - `profiler-analysis`: drives `profiler-cli` against a loaded
   profiler.firefox.com/share.firefox.dev profile with structured queries over
@@ -68,7 +71,7 @@ since these are public pages.
 - `documentation`: the Sphinx/MyST `./mach doc` workflow.
 - `js-perf-investigation`: SpiderMonkey perf work, hypothesis first,
   `samply`, Mann-Whitney evaluation over knob-tuning.
-- `stmo`: `stmo-cli` for sql.telemetry.mozilla.org, `REDASH_API_KEY`-gated,
+- `stmo`: `stmo-cli` for https://sql.telemetry.mozilla.org, `REDASH_API_KEY`-gated,
   files live under `artifacts/stmo/`.
 - `android` / `android-new-module`: use `./mach gradle`, not `gradlew`;
   scaffolding steps for a new android-components module.
