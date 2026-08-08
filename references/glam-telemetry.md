@@ -55,8 +55,8 @@ Take the last row for the latest version.
 ## Know the unit before you plot
 
 Metric definitions live in the Firefox tree:
-- `netwerk/metrics.yaml` (category `networking`, e.g. `http_3`)
-- `netwerk/protocol/http/metrics.yaml` (happy_eyeballs)
+- [`netwerk/metrics.yaml`](https://searchfox.org/mozilla-central/source/netwerk/metrics.yaml) (category `networking`, e.g. `http_3`)
+- [`netwerk/protocol/http/metrics.yaml`](https://searchfox.org/mozilla-central/source/netwerk/protocol/http/metrics.yaml) (happy_eyeballs)
 
 Read the YAML for `type` (memory_distribution = bytes, custom_distribution =
 integer), `unit`, and description before charting.
@@ -92,8 +92,8 @@ GLAM is reachable directly anyway.
 ## Second source: performance.mozilla.org for version-over-time
 
 For page-load metrics over time (HTTP-version share, time-to-request-start, DNS
-lookup times), `performance.mozilla.org/networking.html` embeds Redash chart
-configs with per-query `api_key`s in its inline HTML. Pull the CSV directly:
+lookup times), https://performance.mozilla.org/networking.html embeds Redash
+chart configs with per-query `api_key`s in its inline HTML. Pull the CSV directly:
 
 ```
 curl "https://sql.telemetry.mozilla.org/api/queries/<ID>/results.csv?api_key=<KEY>"

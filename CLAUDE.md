@@ -188,12 +188,16 @@ below, and **append anything durable you learn** so the next session benefits to
 <!-- Repos Max works on and key facts about each. -->
 
 - neqo -> Firefox downstream: bump the five neqo crate `tag`/`rev`s in
-  `netwerk/socket/neqo_glue/Cargo.toml` and `netwerk/test/http3server/Cargo.toml`, then
-  `./mach vendor rust` (updates `Cargo.lock`, re-vendors `third_party/rust/neqo-*`,
+  [`netwerk/socket/neqo_glue/Cargo.toml`](https://searchfox.org/mozilla-central/source/netwerk/socket/neqo_glue/Cargo.toml)
+  and [`netwerk/test/http3server/Cargo.toml`](https://searchfox.org/mozilla-central/source/netwerk/test/http3server/Cargo.toml),
+  then `./mach vendor rust` (updates `Cargo.lock`, re-vendors `third_party/rust/neqo-*`,
   regenerates the cbindgen FFI header). `mtu` is a neqo workspace crate and needs a fresh
-  `supply-chain/audits.toml` git-delta audit on each bump. Glue lives in
-  `netwerk/socket/neqo_glue/src/lib.rs` (client; cbindgen -> `Http3Session.cpp`); the
-  `http3server` test binary uses neqo's server-side API. Verify with `./mach build`.
+  [`supply-chain/audits.toml`](https://searchfox.org/mozilla-central/source/supply-chain/audits.toml)
+  git-delta audit on each bump. Glue lives in
+  [`netwerk/socket/neqo_glue/src/lib.rs`](https://searchfox.org/mozilla-central/source/netwerk/socket/neqo_glue/src/lib.rs)
+  (client; cbindgen ->
+  [`Http3Session.cpp`](https://searchfox.org/mozilla-central/source/netwerk/protocol/http/Http3Session.cpp));
+  the `http3server` test binary uses neqo's server-side API. Verify with `./mach build`.
 - Firefox ships an in-tree agent skills catalog (`.agents/skills/`, mirrored to
   `.claude/skills/` so Claude Code auto-loads them in a firefox checkout
   session): bug filing, reviewer lookup, profiler analysis, spec-to-code
@@ -232,13 +236,16 @@ below, and **append anything durable you learn** so the next session benefits to
   `references/sync-fork-with-upstream-web-sandbox.md`. Verified 2026-07
   syncing neqo, quinn, and firefox.
 - Firefox necko code review: do NOT tag the group `r?#necko-reviewers` in commit
-  messages (and ignore firefox `AGENTS.md`'s generic `r?#group-name` advice for
-  necko): `moz-phab submit` rejects it. You never needed it anyway: Herald
-  auto-adds `#necko-reviewers` to any revision touching `netwerk/` paths, so just
-  name an individual and the group attaches itself. Confirmed 2026-08 on
+  messages (and ignore firefox
+  [`AGENTS.md`](https://github.com/mozilla-firefox/firefox/blob/main/AGENTS.md)'s
+  generic `r?#group-name` advice for necko): `moz-phab submit` rejects it. You
+  never needed it anyway: Herald auto-adds `#necko-reviewers` to any revision
+  touching `netwerk/` paths, so just name an individual and the group attaches
+  itself. Confirmed 2026-08 on
   https://phabricator.services.mozilla.com/D315875: commit message said only
   `r?valentin`, yet the revision came up with reviewers `valentin` AND
-  `necko-reviewers`. Individuals to name (authoritative roster is `mots.yaml`,
+  `necko-reviewers`. Individuals to name (authoritative roster is
+  [`mots.yaml`](https://searchfox.org/mozilla-central/source/mots.yaml),
   module `core_necko`): owner `valentin` (Valentin Gosu), peers `kershaw`
   (Kershaw Chang), `jesup` (Randell Jesup), `sunil` (Sunil Mayya). Max's usual
   picks: `kershaw`, `valentin`, `leggett`. Firefox's in-tree `find-reviewer`
