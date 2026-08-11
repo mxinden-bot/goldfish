@@ -9,7 +9,10 @@ number.
 
 - Triage helper: https://mozilla-necko.github.io/necko-triage/ (source:
   https://github.com/mozilla-necko/necko-triage, default branch `master`; the
-  query is built in `necko-triage.js` / `app-settings.js`).
+  query is built in
+  [`necko-triage.js`](https://github.com/mozilla-necko/necko-triage/blob/master/necko-triage.js)
+  /
+  [`app-settings.js`](https://github.com/mozilla-necko/necko-triage/blob/master/app-settings.js)).
 - The dashboard renders its table via JS, so a plain fetch of the page shows no
   bugs. Reconstruct the query against the Bugzilla REST / buglist API instead.
 
