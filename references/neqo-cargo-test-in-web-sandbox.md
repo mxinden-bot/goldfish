@@ -94,6 +94,15 @@ NSS builds into `~/nssbuild/dist`, so the firefox tree stays clean. Verified
   "Beta"/customized NSS from firefox is accepted.
 - This is local-only scaffolding: the `[patch]` block and any test edits must
   not be committed to neqo.
+- `cargo test --release` does NOT work with this NSS setup: the release build
+  hits an NSS runtime version gate (`Minimum NSS version of 3.126 not supported`,
+  `UnsupportedVersion`) in `test-fixture`'s one-time init, so `default_client()`
+  panics before any test body runs. (Debug builds pass; only the release path
+  enforces it.) So to observe release semantics, e.g. what a `debug_assert!` does
+  once it is compiled out, do NOT reach for `--release`. Instead build in debug
+  and neutralise the specific assert(s) by hand (comment them out, or wrap in
+  `if false { assert!(..) }`), then run the normal debug `cargo test`. Verified
+  2026-08 while checking neqo's key-update duplicate crash in release.
 
 ## Running clippy (same NSS setup)
 
