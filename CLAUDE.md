@@ -136,6 +136,11 @@ below, and **append anything durable you learn** so the next session benefits to
   stale metaphors or jargon, and never a rule at the cost of clumsiness). Apply
   this to prose written for or as him: commits, PRs, docs, this memory. The six
   rules verbatim: `references/orwell-writing-rules.md`.
+- Code comments: keep them very short and precise, and add few. Cut any comment
+  that restates the code or duplicates an adjacent assertion message; if an
+  assert message or the name already carries the information, do not repeat it in
+  a comment. Verbose, explanatory comments get flagged in review. (Same spirit as
+  the firefox `AGENTS.md` "comments to a strict minimum" rule.)
 
 <!-- Append stable preferences as you learn them. -->
 
