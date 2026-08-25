@@ -51,8 +51,11 @@ below, and **append anything durable you learn** so the next session benefits to
    - If you somehow already committed on the random branch, create/rename to a
      descriptive branch (`git branch -m <good-name>` or `git checkout -b
      <good-name>`) before pushing.
-   - Goldfish memory edits are the exception: they go straight to `main`, no
-     branch at all (see "How to maintain this file" below).
+   - Goldfish memory edits made in a live session are the exception: they go
+     straight to `main`, no branch at all (see "How to maintain this file"
+     below). The scheduled memory-upkeep routine is a further exception to
+     that exception: it always opens a PR instead, since no one reviews its
+     edits live (see `routines/memory-upkeep.md`).
 
 4. **Start from latest upstream `main`, and sync the fork.** Before beginning a
    new patch or pull request, pull the latest `main` from upstream and branch off
@@ -104,9 +107,12 @@ below, and **append anything durable you learn** so the next session benefits to
   knows what to re-confirm. For everything else, git history is the timeline.
 - Commit memory updates with a plain message (e.g. `Add note on X`), authored
   as Max, per the rules above.
-- This repo's memory updates go straight to `main`: commit and push directly to
-  `main`, no feature branch and no PR. (The branch rules in "Hard rules" are for
-  code patches to other projects, not for editing this memory.)
+- This repo's memory updates made in a live session go straight to `main`:
+  commit and push directly to `main`, no feature branch and no PR. (The branch
+  rules in "Hard rules" are for code patches to other projects, not for editing
+  this memory.) The scheduled memory-upkeep routine is the one exception: it
+  always opens a PR for review instead of pushing to `main` directly, per
+  `routines/memory-upkeep.md`.
 - Be proactive: during a session, when you notice something durable worth
   remembering (a stable preference, a recurring workflow, a hard-won lesson),
   ask Max whether to add it here rather than waiting to be told. Keep these
