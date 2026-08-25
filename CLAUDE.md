@@ -239,6 +239,17 @@ below, and **append anything durable you learn** so the next session benefits to
 - The web-session `/home/user/firefox` checkout is a shallow squashed snapshot, so local
   `git blame`/`git log` are worthless for authorship. Use upstream hg or searchfox
   instead: `references/necko-triage.md` ("Finding the author / regressor").
+- Firefox `./mach build` in the web sandbox runs out of disk at the `libxul.so` link,
+  and the symptom is a red herring: a bare `clang++: error: linker command failed with
+  exit code 1` that looks like a real link error (missing symbol), not a disk error. The
+  tell is a `No space left on device` on a nearby target (e.g. the geckodriver symlink)
+  in the same failure. Fix: delete `obj-*/x86_64-unknown-linux-gnu/release/incremental`
+  (was ~4.7G in 2026-08). It frees the scratch the link needs without forcing a Rust
+  recompile, because the link consumes the `.rlib`/`.o` products in `deps/`, not the
+  incremental cache; re-running `./mach build binaries` then goes straight to the link.
+  Also worth clearing when tight: `/root/.cargo/git` and `/root/.cargo/registry/cache`
+  (safe once `./mach vendor rust` has run). Verified 2026-08 finishing the neqo v0.31.0
+  downstream bump.
 - Syncing a `mxinden-bot` fork's `main` with upstream in a web session (rule 4
   above): the origin-rewriting proxy blocks a genuine `upstream` remote, and
   the shallow clone makes a naive fetch/push non-fast-forward even when the
