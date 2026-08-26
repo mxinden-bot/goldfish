@@ -48,3 +48,5 @@ Style:
   notes.
 - Name a thing, attach its link: a bug, PR, issue, probe, dashboard, spec, or
   source file gets its clickable URL inline, never a bare name or number.
+- Code comments: keep them short and precise, and add few. Do not restate what
+  the code or an adjacent assert message already says.
