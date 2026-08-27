@@ -84,6 +84,40 @@ cd ~/neqo && NSS_DIR=~/nssbuild/nss cargo test -p neqo-transport --lib
 NSS builds into `~/nssbuild/dist`, so the firefox tree stays clean. Verified
 2026-07: 768 `neqo-transport` lib tests build and pass this way.
 
+## The post-quantum link failure (2026-08)
+
+NSS split its post-quantum code out of freebl into `libpqcwrap_static.a` (which
+in turn calls into `libcrux.a`). The `nss-rs` revision neqo pins predates that
+split, so its `build.rs` never links either, and every test binary fails at the
+link with `undefined symbol: Kyber_NewKey` / `MLDSA_NewKey`, then, once pqcwrap
+is added, `libcrux_ml_dsa_*`. Nothing in the error points at NSS versions, so it
+reads like a broken build rather than a stale dependency.
+
+Fix without touching any manifest: add the two libs through `RUSTFLAGS`.
+
+```sh
+export RUSTFLAGS="-L native=$HOME/nssbuild/dist/Release/lib \
+  -l static=pqcwrap_static -l static=crux"
+```
+
+Keep it exported for `cargo test`, `cargo clippy`, and `cargo doc` alike. Drop
+it once `nss-rs` is bumped past the split. Verified 2026-08: the full
+`neqo-common`, `neqo-transport` and `neqo-http3` suites link and pass.
+
+## Pre-existing sandbox test failures
+
+`cargo test --workspace` never goes green in the sandbox, and neither failure is
+yours. Confirm against the base commit before chasing them, or just exclude both:
+
+- `mtu`: `test::inet_v4`, `test::inet_v6`, `test::loopback_v6` read the real
+  interface (eth0 is 1400, not 1500, and there is no IPv6).
+- `neqo-bin`: `tests::write_qlog_file` binds an IPv6 socket and gets
+  `Address family not supported by protocol`.
+
+`mtu` sorts first, so a plain `--workspace` run aborts there and silently skips
+every neqo crate. Use `cargo test --workspace --exclude mtu --exclude neqo-bin`
+(1629 tests, all passing as of 2026-08).
+
 ## Gotchas
 
 - `--static` is required. `cargo test` uses the dev/debug profile, and `nss-rs`

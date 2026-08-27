@@ -158,8 +158,10 @@ below, and **append anything durable you learn** so the next session benefits to
 - Running neqo tests in a web sandbox: the git protocol is blocked (403) and
   neqo needs a recent NSS, so `cargo test` does not work out of the box. Full
   working recipe (vendor `nss-rs` over HTTPS, `[patch]` it in, build NSS from the
-  firefox checkout, set `NSS_DIR`/`NSS_PREBUILT`): see
-  `references/neqo-cargo-test-in-web-sandbox.md`. Verified 2026-07.
+  firefox checkout, set `NSS_DIR`/`NSS_PREBUILT`, and link `pqcwrap_static` plus
+  `crux` via `RUSTFLAGS` because the pinned `nss-rs` predates NSS moving its
+  post-quantum code out of freebl): see
+  `references/neqo-cargo-test-in-web-sandbox.md`. Verified 2026-08.
 - Running a prebuilt Firefox (not a build) in a web sandbox to watch network-stack
   behavior (DNS, TRR/DoH, HTTPS RR): five sandbox gotchas (TLS MITM, the proxy
   hijacking Firefox, offline/captive-portal detection, socket-process logging,
