@@ -104,6 +104,24 @@ Keep it exported for `cargo test`, `cargo clippy`, and `cargo doc` alike. Drop
 it once `nss-rs` is bumped past the split. Verified 2026-08: the full
 `neqo-common`, `neqo-transport` and `neqo-http3` suites link and pass.
 
+## Plain `cargo test` is NOT the CI check
+
+CI's test job does not run `cargo test`. It runs the whole feature powerset:
+
+```sh
+cargo hack test --locked --feature-powerset --tests \
+  --exclude-features gecko,ci,build-fuzzing-corpus \
+  --mutually-exclusive-features bench,blapi,default,disable-encryption
+```
+
+A green default-feature run says nothing about the ~30 other combinations, the
+same way a green clippy says nothing about rustfmt. Install it with
+`cargo install cargo-hack --locked` and run the command verbatim before pushing.
+
+CI also runs this for both debug and release (`$BUILD_TYPE`). The release half
+cannot be reproduced here: `cargo test --release` hits the NSS runtime version
+gate (see Gotchas), so only the debug half is verifiable in the sandbox.
+
 ## Pre-existing sandbox test failures
 
 `cargo test --workspace` never goes green in the sandbox, and neither failure is
@@ -114,9 +132,11 @@ yours. Confirm against the base commit before chasing them, or just exclude both
 - `neqo-bin`: `tests::write_qlog_file` binds an IPv6 socket and gets
   `Address family not supported by protocol`.
 
-`mtu` sorts first, so a plain `--workspace` run aborts there and silently skips
-every neqo crate. Use `cargo test --workspace --exclude mtu --exclude neqo-bin`
-(1629 tests, all passing as of 2026-08).
+`mtu` sorts first, so any run aborts there and silently skips every neqo crate,
+the powerset run included. Pass `--exclude mtu --exclude neqo-bin`, then cover
+`neqo-bin` separately with `-p neqo-bin ... -- --skip write_qlog_file` so its
+other seven tests still run. As of 2026-08 that is 29 feature combinations green
+across the workspace, plus 4 for `neqo-bin`.
 
 ## Gotchas
 
