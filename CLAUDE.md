@@ -272,6 +272,7 @@ below, and **append anything durable you learn** so the next session benefits to
   [`mots.yaml`](https://searchfox.org/mozilla-central/source/mots.yaml),
   module `core_necko`): owner `valentin` (Valentin Gosu), peers `kershaw`
   (Kershaw Chang), `jesup` (Randell Jesup), `sunil` (Sunil Mayya). Max's usual
-  picks: `kershaw`, `valentin`, `leggett`. Firefox's in-tree `find-reviewer`
+  picks: `kershaw`, `valentin`, `leggert` (Lars Eggert, `[:lars]`, the neqo
+  maintainer: note the spelling `leggeRt`, not `leggett`). Firefox's in-tree `find-reviewer`
   skill can look this up live via `mach` inside a checkout; see
   `references/firefox-agent-skills.md`.
