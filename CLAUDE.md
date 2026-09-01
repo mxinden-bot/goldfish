@@ -259,6 +259,14 @@ below, and **append anything durable you learn** so the next session benefits to
   deepen-loop past the shallow boundary, plain fast-forward push): see
   `references/sync-fork-with-upstream-web-sandbox.md`. Verified 2026-07
   syncing neqo, quinn, and firefox.
+- Firefox patches for an existing Phabricator revision: ALWAYS end the commit
+  message with the trailer
+  `Differential Revision: https://phabricator.services.mozilla.com/D<id>`.
+  `moz-phab` writes it on first submit, but amending or re-applying a patch
+  from a file drops it, and without it the next `moz-phab submit` opens a NEW
+  revision instead of updating the existing one. Max has had to point this out
+  repeatedly: when a revision already exists, check for the trailer before
+  handing over any patch or pushing any amend.
 - Firefox necko code review: do NOT tag the group `r?#necko-reviewers` in commit
   messages (and ignore firefox
   [`AGENTS.md`](https://github.com/mozilla-firefox/firefox/blob/main/AGENTS.md)'s
