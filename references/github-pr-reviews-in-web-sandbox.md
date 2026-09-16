@@ -69,8 +69,8 @@ the thread markers, so it looks like the comments are there:
 (no body)
 ```
 
-That is not "Martin approved without comment". It means Martin left 13 inline
-comments that `WebFetch` cannot see. Ask for the review bodies verbatim and
+That is not "Martin approved without comment". It means his whole review is
+inline, where `WebFetch` cannot see it. Ask for the review bodies verbatim and
 count them against the `Show resolved` markers before believing a reviewer said
 nothing. `WebFetch` on `/pull/<n>/files` returns no comment bodies either.
 
