@@ -18,8 +18,9 @@ add, move, or remove a file, update this index in the same commit.
 - `references/bugzilla-prefill-url.md`: build a pre-filled `bugzilla.mozilla.org` enter_bug.cgi URL.
 - `references/necko-triage.md`: run a Necko triage pass (untriaged queue query, criteria, mis-filings, regressor lookup).
 - `references/orwell-writing-rules.md`: Orwell's six rules from "Politics and the English Language", verbatim. The writing style Max aspires to.
-- `references/neqo-cargo-test-in-web-sandbox.md`: build and `cargo test` mozilla/neqo in a web sandbox (git blocked, NSS needed).
+- `references/neqo-cargo-test-in-web-sandbox.md`: build and `cargo test` mozilla/neqo in a web sandbox (git blocked, NSS needed), plus a stub-crate harness for linting one new file with no NSS at all.
 - `references/glam-telemetry.md`: read Firefox Glean metrics from GLAM's public API (percentiles, label shares, the OS-filter trap, probe naming, performance.mozilla.org CSVs).
 - `references/run-firefox-in-web-sandbox.md`: run a prebuilt Firefox headless in a web session (proxy/MITM/offline/socket-process gotchas, Marionette driver, MOZ_LOG) to observe network-stack behavior.
 - `references/sync-fork-with-upstream-web-sandbox.md`: fast-forward a mxinden-bot fork's `main` to upstream in a web sandbox (proxy-blocked upstream remote, shallow-clone deepen loop).
+- `references/github-pr-reviews-in-web-sandbox.md`: read a PR's reviews from a web session when the PR's repo is out of session scope (what `add_repo`/`WebFetch` can and cannot reach, and why a child session is a dead end).
 - `references/firefox-agent-skills.md`: catalog of Firefox's in-tree `.agents/skills/` (bug filing, reviewer lookup, profiler analysis, spec-to-code mapping, and more), with cross-references to what overlaps in this repo.

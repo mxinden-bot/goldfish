@@ -201,3 +201,50 @@ firefox checkout is absent, `nss-rs` will clone NSS+NSPR itself via `hg`, which
 needs `pip install mercurial` and, in the web sandbox, a `~/.hgrc`
 `[http_proxy] host = ${HTTPS_PROXY#http://}` pointing at the egress proxy whose
 PORT changes every container restart), clippy runs clean per crate.
+
+## Reviewing one new file without NSS at all
+
+For a PR that adds a single self-contained module, do not build neqo. Lift the
+file into a throwaway crate that mimics neqo's lint setup and check it there.
+This takes about a minute and catches the lints CI would, with no NSS, no
+`nss-rs` vendoring and no nightly beyond `rustfmt`.
+
+```sh
+# a package with neqo's exact lint table, config and edition
+python3 -c "s=open('Cargo.toml').read(); \
+  print(s[s.index('[workspace.lints.cargo]'):s.index('# Optimize build dep')] \
+        .replace('[workspace.lints.','[lints.'))" >> /tmp/h/Cargo.toml
+cp .clippy.toml .rustfmt.toml /tmp/h/          # both matter, see below
+```
+
+Then stub whatever the file pulls in from the rest of the tree: `neqo-common`
+as a crate exporting no-op `qdebug!`/`qtrace!` macros, `test-fixture` as a
+crate with `now()`, and the `crate::` modules it names (`rtt`, `streams`, ...)
+as modules in the harness `lib.rs` carrying the real constants and newtypes.
+Copy the file in unchanged, so line numbers still match the PR.
+
+Then run what CI runs:
+
+```sh
+cargo clippy --all-targets
+cargo test
+cargo +nightly fmt --check
+RUSTDOCFLAGS="--deny rustdoc::broken_intra_doc_links --deny warnings" \
+    cargo doc --no-deps --document-private-items
+```
+
+Notes:
+
+- **Copy `.clippy.toml` or you get false positives.** It sets
+  `allow-unwrap-in-tests = true`, without which every `.unwrap()` in the test
+  module reports as `clippy::unwrap_used`.
+- **The docs job is a real gate and it is easy to miss.**
+  [`clippy.yml`](https://github.com/mozilla/neqo/blob/main/.github/workflows/clippy.yml)
+  runs `cargo doc --document-private-items` with
+  `--deny rustdoc::broken_intra_doc_links --deny warnings`, so
+  `--document-private-items` means a stale `[`Self::old_name`]` link in a
+  **private** method's doc breaks CI just as hard as a public one. Renaming a
+  method and leaving a link behind is the usual way in. Found exactly this in
+  [#3982](https://github.com/mozilla/neqo/pull/3982).
+- Stable clippy catches most things, but CI uses a rolling nightly, so a clean
+  stable run is not a promise.
