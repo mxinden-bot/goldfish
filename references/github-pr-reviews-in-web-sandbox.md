@@ -6,12 +6,26 @@ session is not scoped to, e.g. reviewing
 `mxinden-bot` forks. Verified 2026-09 on
 [mozilla/neqo#3982](https://github.com/mozilla/neqo/pull/3982).
 
-## The one rule
+## The rule: one session type per job
 
-**Start the session with the repo that owns the PR as a source.** Everything
-below is what happens when you do not, and none of it recovers inline review
-comments. If the goal is "review PR X in repo R", R has to be in the session
-from the first turn.
+A session may hold repos from **one owner only** ("cross-tier adds are not
+supported in v1"), and the Claude GitHub App is installed on `mxinden-bot`
+alone, so `list_repos` never shows a `mozilla/*` repo. That forces two kinds of
+session, and picking the wrong one cannot be fixed mid-session:
+
+- **Authoring**: source is the fork, `mxinden-bot/<repo>`, alongside
+  `mxinden-bot/goldfish`. Push branches, open pull requests, edit memory.
+- **Reviewing**: source is upstream, `mozilla/<repo>`. The GitHub API reaches
+  the real pull request, its review threads, its CI. No push, and no goldfish
+  as a source.
+
+Carry goldfish into a review session through `append_system_prompt` with the
+body of `portable.md` (about 2.5KB) instead of as a repo. Memory rules survive,
+the owner limit is respected. Verified 2026-09.
+
+If the goal is "review PR X in repo R", R has to be the session's source from
+the first turn. Everything below is what happens when it is not, and none of it
+recovers inline review comments.
 
 ## What the session scope actually blocks
 
@@ -95,7 +109,8 @@ session**:
   the same cross-tier refusal, so it has no shared repo to drop a file in.
 
 The child does the work and the answer lands in its transcript, where only a
-human can read it. Fine as a deliverable for Max, useless as a subroutine.
+human can read it. So spawn one as **Max's next workplace**, seeded with the
+findings so far, not as a subroutine that reports back. Never promise a relay.
 
 Do not quote the child's `post_turn_summary` as a finding either. It is a
 generated one-liner, not data: the same session reported "13 review threads"
@@ -107,6 +122,7 @@ after its first pass and "75 review threads" after its second.
    session against that repo.
 2. Already in the wrong session? Fetch the PR head over git and review the code
    locally: that half needs nothing from GitHub.
-3. For the review threads, ask Max to paste them. It is faster than any
-   workaround here and it is the only thing that gets inline comments into the
-   session that is doing the review.
+3. For the review threads, either ask Max to paste them, or hand him a fresh
+   upstream-sourced session (`create_session` with `source_url` plus
+   `portable.md` in `append_system_prompt`) carrying the findings so far, and
+   let him carry on there. Do not promise to read anything back out of it.

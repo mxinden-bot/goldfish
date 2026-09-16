@@ -162,12 +162,16 @@ below, and **append anything durable you learn** so the next session benefits to
   `crux` via `RUSTFLAGS` because the pinned `nss-rs` predates NSS moving its
   post-quantum code out of freebl): see
   `references/neqo-cargo-test-in-web-sandbox.md`. Verified 2026-08.
-- Reviewing a GitHub PR whose repo is not one of the session's sources: open the
-  session against that repo from the start. `add_repo` refuses to attach a
-  second owner ("cross-tier adds are not supported in v1"), `WebFetch` returns
-  review summary bodies but never inline review threads, and spawning a child
-  session has no return channel. Full account of what does and does not reach:
-  `references/github-pr-reviews-in-web-sandbox.md`. Verified 2026-09.
+- A web session holds repos from ONE owner only, and the GitHub App is installed
+  on `mxinden-bot` alone, so a session seeded with the forks can never reach a
+  `mozilla/*` pull request's API. Pick the session type up front: **authoring**
+  on the fork plus goldfish (push, open PRs), **reviewing** sourced at upstream
+  `mozilla/<repo>` with `portable.md` in the system prompt instead of goldfish
+  as a repo. It cannot be fixed mid-session: `add_repo` refuses the second
+  owner, `WebFetch` returns review summary bodies but never inline threads, and
+  a child session has no return channel. Details, exact errors and the
+  `create_session` recipe: `references/github-pr-reviews-in-web-sandbox.md`.
+  Verified 2026-09.
 - Running a prebuilt Firefox (not a build) in a web sandbox to watch network-stack
   behavior (DNS, TRR/DoH, HTTPS RR): five sandbox gotchas (TLS MITM, the proxy
   hijacking Firefox, offline/captive-portal detection, socket-process logging,
