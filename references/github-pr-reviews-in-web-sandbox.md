@@ -97,6 +97,10 @@ session**:
 The child does the work and the answer lands in its transcript, where only a
 human can read it. Fine as a deliverable for Max, useless as a subroutine.
 
+Do not quote the child's `post_turn_summary` as a finding either. It is a
+generated one-liner, not data: the same session reported "13 review threads"
+after its first pass and "75 review threads" after its second.
+
 ## Practical order
 
 1. Reviewing a PR in an unscoped repo? Say so before starting, and open the
