@@ -216,7 +216,15 @@ below, and **append anything durable you learn** so the next session benefits to
   then `./mach vendor rust` (updates `Cargo.lock`, re-vendors `third_party/rust/neqo-*`,
   regenerates the cbindgen FFI header). `mtu` is a neqo workspace crate and needs a fresh
   [`supply-chain/audits.toml`](https://searchfox.org/mozilla-central/source/supply-chain/audits.toml)
-  git-delta audit on each bump. Glue lives in
+  git audit on each bump. These git audits must be **version-to-rev**, never rev-to-rev
+  (`@git:old -> @git:new`): afranchuk flagged this on
+  [D321289](https://phabricator.services.mozilla.com/D321289#inline-1719755). If the crate
+  version is unchanged, extend the existing `<ver> -> <ver>@git:<rev>` audit's endpoint to the
+  new rev (`./mach cargo vet certify <crate> <ver> <ver>@git:<newrev> --criteria safe-to-deploy
+  --accept-all`). If the published version also moved (e.g. `mls-rs-provider-sqlite` 0.22.0 ->
+  0.23.0 during an mls-platform-api bump), split it into an importable `<old> -> <new>` version
+  delta plus a `<new> -> <new>@git:<rev>` version-to-rev git delta (`importable = false`). Glue
+  lives in
   [`netwerk/socket/neqo_glue/src/lib.rs`](https://searchfox.org/mozilla-central/source/netwerk/socket/neqo_glue/src/lib.rs)
   (client; cbindgen ->
   [`Http3Session.cpp`](https://searchfox.org/mozilla-central/source/netwerk/protocol/http/Http3Session.cpp));
