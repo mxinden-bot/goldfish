@@ -229,6 +229,19 @@ below, and **append anything durable you learn** so the next session benefits to
   (client; cbindgen ->
   [`Http3Session.cpp`](https://searchfox.org/mozilla-central/source/netwerk/protocol/http/Http3Session.cpp));
   the `http3server` test binary uses neqo's server-side API. Verify with `./mach build`.
+- Crates Firefox vendors (neqo, happy-eyeballs, application-services, ...): any
+  dependency change must match Firefox's
+  [`Cargo.lock`](https://github.com/mozilla-firefox/firefox/blob/main/Cargo.lock).
+  Max insists on this and had to repeat it. Before pushing, diff the PR's lockfile
+  against the base and against Firefox's for every added or changed package, and
+  pin mismatches with `cargo update -p <crate> --precise <firefox-version>`. Avoid
+  crates and features Firefox does not already vendor (e.g. `tracing-subscriber`'s
+  `env-filter`: use `filter::Targets`). Dev-dependencies never reach Firefox, but
+  normal deps of anything Firefox uses do, including `neqo-bin` (via
+  `http3server`) and lockfile-only entries: `cargo vendor` copies every lockfile
+  package, even a never-built one like `valuable` (pulled in by `tracing-log`, or by
+  `tracing-core` with default features). Check with a scratch crate that depends on
+  the changed crates the way Firefox does, then read its fresh `Cargo.lock`.
 - Firefox ships an in-tree agent skills catalog (`.agents/skills/`, mirrored to
   `.claude/skills/` so Claude Code auto-loads them in a firefox checkout
   session): bug filing, reviewer lookup, profiler analysis, spec-to-code
