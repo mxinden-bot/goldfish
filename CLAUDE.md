@@ -290,6 +290,19 @@ below, and **append anything durable you learn** so the next session benefits to
   deepen-loop past the shallow boundary, plain fast-forward push): see
   `references/sync-fork-with-upstream-web-sandbox.md`. Verified 2026-07
   syncing neqo, quinn, and firefox.
+- When a sheriff needinfos Max as the suspected cause of a new intermittent,
+  check Treeherder's `failuresbybug` for failures on pushes *before* his,
+  built without his code. Backfills on earlier pushes carry higher job IDs
+  than the original failure, so the push that "first" went red is often just
+  the first one looked at. Verified 2026-10 on
+  https://bugzilla.mozilla.org/show_bug.cgi?id=2076875 (a stack-fixer race,
+  not his crate bumps).
+- neqo's `debug!`/`trace!` logs are compiled out of every shipped Firefox,
+  Nightly included (`log` with `release_max_level_info` in
+  `toolkit/library/rust/shared/Cargo.toml`), and qlog has no HTTP/3 SETTINGS.
+  Never ask a reporter for `neqo_http3:5` from a release build; to see a
+  server's SETTINGS, ask for a Chrome `chrome://net-export` log or a Wireshark
+  capture with `SSLKEYLOGFILE`, or use a debug build.
 - Firefox patches for an existing Phabricator revision: ALWAYS end the commit
   message with the trailer
   `Differential Revision: https://phabricator.services.mozilla.com/D<id>`.

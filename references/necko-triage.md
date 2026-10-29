@@ -16,23 +16,53 @@ number.
 - The dashboard renders its table via JS, so a plain fetch of the page shows no
   bugs. Reconstruct the query against the Bugzilla REST / buglist API instead.
 
-"Untriaged" means: product **Core**, across the ten networking components
-(Networking, Networking: Cache, Networking: Cookies, Networking: DNS,
-Networking: File, Networking: HTTP, Networking: JAR, Networking: Proxy,
-Networking: WebSockets, DOM: Networking); **unresolved**; **minus** any bug that
-already carries a necko whiteboard tag (`[necko-triaged]`,
-`[necko-priority-queue]`, `[necko-priority-review]`, `[necko-would-take]`,
-`[necko-backlog]`, `[necko-active]`, `[necko-next]`); **excluding** the bot
-reporters `wptsync@mozilla.bugs` and `intermittent-bug-filer@mozilla.bugs`; and
-**excluding** needinfo'd bugs.
+"Untriaged" means: product **Core**, in the nine components the dashboard
+lists in `NeckoTriage.prototype.components` (Networking, Networking: Cache,
+Networking: DNS, Networking: File, Networking: HTTP, Networking: JAR,
+Networking: Proxy, Networking: WebSockets, DOM: Networking); **unresolved**;
+**no needinfo flag**; reporter not `wptsync@mozilla.bugs` or
+`intermittent-bug-filer@mozilla.bugs`; and EITHER no necko whiteboard tag at
+all (`[necko-triaged]`, `[necko-priority-queue]`, `[necko-priority-review]`,
+`[necko-would-take]`, `[necko-backlog]`, `[necko-active]`, `[necko-next]`) OR
+`[necko-triaged]` with an empty priority or severity.
 
-Ready-to-click live list (buglist.cgi):
-https://bugzilla.mozilla.org/buglist.cgi?query_format=advanced&product=Core&component=Networking&component=Networking%3A%20Cache&component=Networking%3A%20Cookies&component=Networking%3A%20DNS&component=Networking%3A%20File&component=Networking%3A%20HTTP&component=Networking%3A%20JAR&component=Networking%3A%20Proxy&component=Networking%3A%20WebSockets&component=DOM%3A%20Networking&resolution=---&f1=status_whiteboard&o1=notsubstring&v1=%5Bnecko-triaged%5D&f2=reporter&o2=notequals&v2=wptsync%40mozilla.bugs&f3=reporter&o3=notequals&v3=intermittent-bug-filer%40mozilla.bugs&f4=flagtypes.name&o4=notsubstring&v4=needinfo
+**Networking: Cookies is NOT in the list.** Cookies belong to the cookie team
+(triage owner Tim Huang, cookie code mostly baku); do not tag cookie bugs
+`[necko-triaged]` or count them as Necko queue. An earlier version of this file
+included Cookies and sent a session chasing four cookie bugs (2026-10).
+
+Ready-to-click live list (buglist.cgi, the dashboard's boolean chart verbatim):
+https://bugzilla.mozilla.org/buglist.cgi?query_format=advanced&product=Core&resolution=---&component=Networking&component=Networking%3A%20Cache&component=Networking%3A%20DNS&component=Networking%3A%20File&component=Networking%3A%20HTTP&component=Networking%3A%20JAR&component=Networking%3A%20Proxy&component=Networking%3A%20WebSockets&component=DOM%3A%20Networking&f19=flagtypes.name&o19=substring&v19=needinfo&n19=1&email1=intermittent-bug-filer%40mozilla.bugs&emailreporter1=1&emailtype1=notequals&email2=wptsync%40mozilla.bugs&emailreporter2=1&emailtype2=notequals&j1=OR&f1=OP&f2=OP&n3=1&f3=status_whiteboard&o3=substring&v3=%5Bnecko-triaged%5D&n4=1&f4=status_whiteboard&o4=substring&v4=%5Bnecko-priority-queue%5D&n5=1&f5=status_whiteboard&o5=substring&v5=%5Bnecko-priority-review%5D&n6=1&f6=status_whiteboard&o6=substring&v6=%5Bnecko-would-take%5D&n7=1&f7=status_whiteboard&o7=substring&v7=%5Bnecko-backlog%5D&n8=1&f8=status_whiteboard&o8=substring&v8=%5Bnecko-active%5D&n9=1&f9=status_whiteboard&o9=substring&v9=%5Bnecko-next%5D&f10=CP&f11=OP&j12=OR&f12=OP&f13=priority&o13=equals&v13=--&f14=bug_severity&o14=equals&v14=--&f15=CP&f16=status_whiteboard&o16=substring&v16=%5Bnecko-triaged%5D&f17=CP&f18=CP
 
 Same query as JSON: swap `buglist.cgi` for `rest/bug` and append
-`&include_fields=id,summary,component,severity,priority,type,keywords,whiteboard,creator,creation_time&limit=0`.
+`&include_fields=id,summary,component,severity,priority,keywords,whiteboard,flags,creator,creation_time&limit=0`.
 (Fetching the raw JSON via curl keeps the full list; WebFetch summarizes and can
 drop rows.)
+
+Other dashboard tables worth checking in a pass (queries in
+[`necko-triage.js`](https://github.com/mozilla-necko/necko-triage/blob/master/necko-triage.js)
+`availableTables`; transcribe them by hand, since evaluating the downloaded JS
+is blocked in the web sandbox):
+
+- **Webcompat needs diagnosis**: any product, unresolved, user story contains
+  `diagnosis-team:networking`, keyword `webcompat:needs-diagnosis`. Live list:
+  https://bugzilla.mozilla.org/buglist.cgi?resolution=---&f1=cf_user_story&o1=substring&v1=diagnosis-team%3Anetworking&f2=keywords&o2=anywordssubstr&v2=webcompat%3Aneeds-diagnosis
+- **Untriaged bugs (awaiting ni?)**: same components, unresolved, has a
+  `needinfo?`, and none of `[necko-triaged]`, `[necko-would-take]`,
+  `[necko-backlog]`, `[necko-active]`, `[necko-next]`. Sorted by needinfo age:
+  stale reporter needinfos are candidates for INCOMPLETE.
+
+Checked against the dashboard source 2026-10.
+
+## Max's own needinfo queue
+
+Needinfos on public bugs are readable anonymously over REST (no API key):
+`https://bugzilla.mozilla.org/rest/bug?f1=requestees.login_name&o1=equals&v1=mail@max-inden.de&f2=flagtypes.name&o2=equals&v2=needinfo%3F&include_fields=id,summary,status,flags,last_change_time`.
+Needinfos on restricted (security) bugs are invisible without an API key, so
+the count is lower than the profile page's; point Max at
+https://bugzilla.mozilla.org/request.cgi?action=queue&requestee=mail%40max-inden.de&type=needinfo
+for those. Many BugBot needinfos (uplift?, r+ not landed, backout) are already
+moot by the time he looks: check the bug's later comments before ranking.
 
 ## When a bug counts as triaged
 
