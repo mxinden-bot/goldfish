@@ -90,6 +90,11 @@ below, and **append anything durable you learn** so the next session benefits to
      params unless a specific view is needed.
    - Bugzilla: `https://bugzilla.mozilla.org/show_bug.cgi?id=<id>`.
    - Phabricator: `https://phabricator.services.mozilla.com/D<id>`.
+   - Commits you push and files you touch, e.g. in goldfish:
+     `https://github.com/mxinden-bot/goldfish/commit/<sha>` and
+     `https://github.com/mxinden-bot/goldfish/blob/main/<path>`.
+   - Chromium CL: `https://chromium-review.googlesource.com/c/chromium/src/+/<n>`;
+     QUICHE commit: `https://quiche.googlesource.com/quiche/+/<sha>`.
 
 ---
 
