@@ -195,6 +195,10 @@ below, and **append anything durable you learn** so the next session benefits to
   `references/glam-telemetry.md`. The trap: for a metric gated on an OS feature,
   `os:"*"` is buried by the majority OS (Windows), so filter (e.g. `os:"Linux"`
   for GSO/GRO offload). Verified 2026-07.
+- Chrome-side updates ("what is Chrome doing in networking?"): query
+  Chromium's Gerrit REST API for `dir:net` changes and clone QUICHE to read
+  its flag defaults (internal vs. Chromium). Recipe, topic filter and a dated
+  baseline: `references/chrome-net-watch.md`. Verified 2026-10.
 - Glean/telemetry probes: do not raise the data-review step with Max. Keep the
   required `data_reviews:` field in `metrics.yaml` (point it at the bug), but
   never write "needs a data review" into a bug description or flag it in chat.

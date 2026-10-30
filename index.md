@@ -24,3 +24,4 @@ add, move, or remove a file, update this index in the same commit.
 - `references/sync-fork-with-upstream-web-sandbox.md`: fast-forward a mxinden-bot fork's `main` to upstream in a web sandbox (proxy-blocked upstream remote, shallow-clone deepen loop).
 - `references/github-pr-reviews-in-web-sandbox.md`: read a PR's reviews from a web session when the PR's repo is out of session scope (what `add_repo`/`WebFetch` can and cannot reach, and why a child session is a dead end).
 - `references/firefox-agent-skills.md`: catalog of Firefox's in-tree `.agents/skills/` (bug filing, reviewer lookup, profiler analysis, spec-to-code mapping, and more), with cross-references to what overlaps in this repo.
+- `references/chrome-net-watch.md`: track Chrome networking and QUICHE (Gerrit REST queries, QUICHE flag defaults, chromestatus) for updates mapped to Max's Firefox topics, plus a dated baseline.
