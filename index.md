@@ -12,6 +12,7 @@ add, move, or remove a file, update this index in the same commit.
 ## Routines
 
 - `routines/memory-upkeep.md`: scheduled lint pass that opens a PR with proposed memory fixes.
+- `routines/chrome-net-watch.md`: every-other-day report on Chrome and QUICHE networking changes relevant to Max's Firefox work.
 
 ## References
 
