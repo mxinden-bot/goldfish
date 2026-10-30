@@ -48,8 +48,9 @@ commit, bug and feature you mention (rule 6), and never use an em dash.
 
 ## How this is wired up
 
-The schedule lives in the web UI (every other day, fresh session, push and
-email notifications). Its prompt is:
-
-    Read routines/chrome-net-watch.md in this repository and carry out the
-    routine exactly as described there.
+The schedule lives in the web UI: every other day at 04:37 UTC, a fresh session
+each time, with push and email notifications. A routine session starts with no
+repository and no `add_repo` tool, so its prompt clones this repo over HTTPS
+(`git clone --depth 1 https://github.com/mxinden-bot/goldfish /home/user/goldfish`),
+then points here. The prompt also carries a short fallback version of the recipe
+in case the clone fails. Change behavior by editing this file, not the prompt.
