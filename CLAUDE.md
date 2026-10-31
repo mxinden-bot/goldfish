@@ -14,6 +14,10 @@ every "future you" reads this file automatically at startup.
 If you are a future session: **read this whole file first**, follow the rules
 below, and **append anything durable you learn** so the next session benefits too.
 
+> 🔗 **Every name gets its link (hard rule 6).** Bug, PR, commit, branch, file,
+> probe, spec: if you name it in a reply, it is a clickable URL. A bare name or
+> number is a bug in your reply. Max has had to ask for this many times.
+
 ---
 
 ## Hard rules (always apply)
@@ -90,9 +94,11 @@ below, and **append anything durable you learn** so the next session benefits to
      params unless a specific view is needed.
    - Bugzilla: `https://bugzilla.mozilla.org/show_bug.cgi?id=<id>`.
    - Phabricator: `https://phabricator.services.mozilla.com/D<id>`.
-   - Commits you push and files you touch, e.g. in goldfish:
-     `https://github.com/mxinden-bot/goldfish/commit/<sha>` and
-     `https://github.com/mxinden-bot/goldfish/blob/main/<path>`.
+   - Commits you push, branches you push, and files you touch, in any repo:
+     `https://github.com/<owner>/<repo>/commit/<sha>`,
+     `https://github.com/<owner>/<repo>/tree/<branch>`, and
+     `https://github.com/<owner>/<repo>/blob/<ref>/<path>`. When you report a
+     push, link the branch or the commit, never only its name.
    - Chromium CL: `https://chromium-review.googlesource.com/c/chromium/src/+/<n>`;
      QUICHE commit: `https://quiche.googlesource.com/quiche/+/<sha>`.
 
