@@ -210,7 +210,7 @@ below, and **append anything durable you learn** so the next session benefits to
   Chromium's Gerrit REST API for `dir:net` changes and clone QUICHE to read
   its flag defaults (internal vs. Chromium). Recipe, topic filter and a dated
   baseline: `references/chrome-net-watch.md`. Verified 2026-10. A scheduled
-  routine runs it every other day: `routines/chrome-net-watch.md`.
+  routine runs it weekly: `routines/chrome-net-watch.md`.
 - Glean/telemetry probes: do not raise the data-review step with Max. Keep the
   required `data_reviews:` field in `metrics.yaml` (point it at the bug), but
   never write "needs a data review" into a bug description or flag it in chat.
