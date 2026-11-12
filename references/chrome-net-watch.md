@@ -27,15 +27,16 @@ curl -s "https://chromium-review.googlesource.com/changes/?q=project:chromium/sr
   `disk_cache`, cookies), then grep for the topics above.
 - Link a change as `https://chromium-review.googlesource.com/c/chromium/src/+/<n>`.
 - Feature defaults (enabled or not) live in `net/base/features.cc`; Finch
-  trials in `testing/variations/fieldtrial_testing_config.json`. The web
-  session's `/home/user/chromium` checkout is shallow but current, so read
-  those files locally.
+  trials in `testing/variations/fieldtrial_testing_config.json`. Do not
+  count on a local Chromium checkout (a routine session has none); fetch
+  files through Gitiles as base64:
+  `https://chromium.googlesource.com/chromium/src/+/main/net/base/features.cc?format=TEXT`.
 - Shipping intents: `https://chromestatus.com/api/v0/features?q=<term>`
   (same `)]}'` prefix). Link as `https://chromestatus.com/feature/<id>`.
 
 ## QUICHE (Google's QUIC library used by Chrome, Google's servers, Envoy, Cronet)
 
-The Chromium checkout does not populate the QUICHE submodule, so clone it:
+Clone QUICHE directly:
 
 ```sh
 git clone --shallow-since=<date> https://quiche.googlesource.com/quiche
