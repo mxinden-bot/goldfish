@@ -226,25 +226,11 @@ below, and **append anything durable you learn** so the next session benefits to
 
 <!-- Repos Max works on and key facts about each. -->
 
-- neqo -> Firefox downstream: bump the five neqo crate `tag`/`rev`s in
-  [`netwerk/socket/neqo_glue/Cargo.toml`](https://searchfox.org/mozilla-central/source/netwerk/socket/neqo_glue/Cargo.toml)
-  and [`netwerk/test/http3server/Cargo.toml`](https://searchfox.org/mozilla-central/source/netwerk/test/http3server/Cargo.toml),
-  then `./mach vendor rust` (updates `Cargo.lock`, re-vendors `third_party/rust/neqo-*`,
-  regenerates the cbindgen FFI header). `mtu` is a neqo workspace crate and needs a fresh
-  [`supply-chain/audits.toml`](https://searchfox.org/mozilla-central/source/supply-chain/audits.toml)
-  git audit on each bump. These git audits must be **version-to-rev**, never rev-to-rev
-  (`@git:old -> @git:new`): afranchuk flagged this on
-  [D321289](https://phabricator.services.mozilla.com/D321289#inline-1719755). If the crate
-  version is unchanged, extend the existing `<ver> -> <ver>@git:<rev>` audit's endpoint to the
-  new rev (`./mach cargo vet certify <crate> <ver> <ver>@git:<newrev> --criteria safe-to-deploy
-  --accept-all`). If the published version also moved (e.g. `mls-rs-provider-sqlite` 0.22.0 ->
-  0.23.0 during an mls-platform-api bump), split it into an importable `<old> -> <new>` version
-  delta plus a `<new> -> <new>@git:<rev>` version-to-rev git delta (`importable = false`). Glue
-  lives in
-  [`netwerk/socket/neqo_glue/src/lib.rs`](https://searchfox.org/mozilla-central/source/netwerk/socket/neqo_glue/src/lib.rs)
-  (client; cbindgen ->
-  [`Http3Session.cpp`](https://searchfox.org/mozilla-central/source/netwerk/protocol/http/Http3Session.cpp));
-  the `http3server` test binary uses neqo's server-side API. Verify with `./mach build`.
+- neqo -> Firefox downstream bump: bump the neqo `tag`/`rev`s, `./mach vendor
+  rust`, add a cargo-vet git audit for `mtu`, fix the glue, `./mach build`. Git
+  audits must be **version-to-rev**, never rev-to-rev (a reviewer flagged this).
+  Full recipe, audit commands and glue files:
+  `references/neqo-firefox-downstream.md`. Verified 2026-08.
 - Crates Firefox vendors (neqo, happy-eyeballs, application-services, ...): any
   dependency change must match Firefox's
   [`Cargo.lock`](https://github.com/mozilla-firefox/firefox/blob/main/Cargo.lock).
@@ -288,17 +274,11 @@ below, and **append anything durable you learn** so the next session benefits to
 - The web-session `/home/user/firefox` checkout is a shallow squashed snapshot, so local
   `git blame`/`git log` are worthless for authorship. Use upstream hg or searchfox
   instead: `references/necko-triage.md` ("Finding the author / regressor").
-- Firefox `./mach build` in the web sandbox runs out of disk at the `libxul.so` link,
-  and the symptom is a red herring: a bare `clang++: error: linker command failed with
-  exit code 1` that looks like a real link error (missing symbol), not a disk error. The
-  tell is a `No space left on device` on a nearby target (e.g. the geckodriver symlink)
-  in the same failure. Fix: delete `obj-*/x86_64-unknown-linux-gnu/release/incremental`
-  (was ~4.7G in 2026-08). It frees the scratch the link needs without forcing a Rust
-  recompile, because the link consumes the `.rlib`/`.o` products in `deps/`, not the
-  incremental cache; re-running `./mach build binaries` then goes straight to the link.
-  Also worth clearing when tight: `/root/.cargo/git` and `/root/.cargo/registry/cache`
-  (safe once `./mach vendor rust` has run). Verified 2026-08 finishing the neqo v0.31.0
-  downstream bump.
+- Firefox `./mach build` in the web sandbox runs out of disk at the `libxul.so`
+  link, disguised as a plain `linker command failed`. The tell is a nearby `No
+  space left on device`; delete `obj-*/.../release/incremental` and rebuild.
+  Details: `references/neqo-firefox-downstream.md` ("Out of disk at the libxul
+  link"). Verified 2026-08.
 - Syncing a `mxinden-bot` fork's `main` with upstream in a web session (rule 4
   above): the origin-rewriting proxy blocks a genuine `upstream` remote, and
   the shallow clone makes a naive fetch/push non-fast-forward even when the
