@@ -26,8 +26,11 @@ curl -s "https://chromium-review.googlesource.com/changes/?q=project:chromium/sr
 - Drop noise by subject (`Roll`, `spanify`, `IWYU`, enterprise proxy,
   `disk_cache`, cookies), then grep for the topics above.
 - Link a change as `https://chromium-review.googlesource.com/c/chromium/src/+/<n>`.
-- Feature defaults (enabled or not) live in `net/base/features.cc`; Finch
-  trials in `testing/variations/fieldtrial_testing_config.json`. Do not
+- Feature defaults (enabled or not) live in
+  [`net/base/features.cc`](https://source.chromium.org/chromium/chromium/src/+/main:net/base/features.cc);
+  Finch trials in
+  [`testing/variations/fieldtrial_testing_config.json`](https://source.chromium.org/chromium/chromium/src/+/main:testing/variations/fieldtrial_testing_config.json).
+  Do not
   count on a local Chromium checkout (a routine session has none); fetch
   files through Gitiles as base64:
   `https://chromium.googlesource.com/chromium/src/+/main/net/base/features.cc?format=TEXT`.

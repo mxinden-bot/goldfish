@@ -177,10 +177,12 @@ cargo +nightly clippy --locked --all-targets \
 Concrete trap (2026-07): a pinned nightly 0.1.98 (2026-06-30) reported clean
 across the workspace, but CI on nightly 0.1.99 (2026-07-14) failed. The two
 weeks between them added `redundant_else` firing on `if let { .. } else { .. }`
-where the `if` branch diverges (`neqo-http3/src/stream_type_reader.rs`), and
-`mut_mut` on `mem::swap(&mut a, &mut b)` where `a`/`b` are already `&mut`
-(`test-fixture/src/lib.rs`, `neqo-transport/src/connection/tests/mod.rs`). These
-were pre-existing upstream code, not from the patch under test: a rolling-nightly
+where the `if` branch diverges
+([`neqo-http3/src/stream_type_reader.rs`](https://github.com/mozilla/neqo/blob/main/neqo-http3/src/stream_type_reader.rs)),
+and `mut_mut` on `mem::swap(&mut a, &mut b)` where `a`/`b` are already `&mut`
+([`test-fixture/src/lib.rs`](https://github.com/mozilla/neqo/blob/main/test-fixture/src/lib.rs),
+[`neqo-transport/src/connection/tests/mod.rs`](https://github.com/mozilla/neqo/blob/main/neqo-transport/src/connection/tests/mod.rs)).
+These were pre-existing upstream code, not from the patch under test: a rolling-nightly
 CI still fails the whole run on them, and upstream fixes them in their own churn
 PR (here, https://github.com/mozilla/neqo/pull/3811). So when clippy fails on code your patch never
 touched, confirm it against `upstream/main` and look for an upstream fix PR

@@ -19,7 +19,8 @@ the neqo v0.31.0 downstream bump.
    the `http3server` test binary uses neqo's server-side API.
 5. Verify with `./mach build`.
 
-Any dependency change must also match Firefox's `Cargo.lock`: see the
+Any dependency change must also match Firefox's
+[`Cargo.lock`](https://github.com/mozilla-firefox/firefox/blob/main/Cargo.lock): see the
 "Crates Firefox vendors" note in CLAUDE.md.
 
 ## cargo-vet audits for git-vendored crates
