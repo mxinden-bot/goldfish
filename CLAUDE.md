@@ -295,7 +295,8 @@ below, and **append anything durable you learn** so the next session benefits to
   not his crate bumps).
 - neqo's `debug!`/`trace!` logs are compiled out of every shipped Firefox,
   Nightly included (`log` with `release_max_level_info` in
-  `toolkit/library/rust/shared/Cargo.toml`), and qlog has no HTTP/3 SETTINGS.
+  [`toolkit/library/rust/shared/Cargo.toml`](https://searchfox.org/mozilla-central/source/toolkit/library/rust/shared/Cargo.toml)),
+  and qlog has no HTTP/3 SETTINGS.
   Never ask a reporter for `neqo_http3:5` from a release build; to see a
   server's SETTINGS, ask for a Chrome `chrome://net-export` log or a Wireshark
   capture with `SSLKEYLOGFILE`, or use a debug build.
