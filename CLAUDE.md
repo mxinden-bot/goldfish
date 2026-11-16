@@ -78,6 +78,12 @@ below, and **append anything durable you learn** so the next session benefits to
    ```
    (Equivalent to a `gh repo sync mxinden-bot/<repo> --source <upstream>` when the
    GitHub CLI is available.)
+   In a web session these commands fail as written: the origin-rewriting proxy
+   blocks a genuine `upstream` remote, and the shallow clone makes the push
+   non-fast-forward even when the fork is just behind. Use the recipe in
+   `references/sync-fork-with-upstream-web-sandbox.md` (reach upstream
+   directly, deepen past the shallow boundary, plain fast-forward push).
+   Verified 2026-07 on neqo, quinn, and firefox.
 
 5. **Never use the em dash (`—`).** Max would never use one, so don't put it in
    anything: prose, commit messages, code, PRs, or this file. Rephrase with a
@@ -274,13 +280,6 @@ below, and **append anything durable you learn** so the next session benefits to
   space left on device`; delete `obj-*/.../release/incremental` and rebuild.
   Details: `references/neqo-firefox-downstream.md` ("Out of disk at the libxul
   link"). Verified 2026-08.
-- Syncing a `mxinden-bot` fork's `main` with upstream in a web session (rule 4
-  above): the origin-rewriting proxy blocks a genuine `upstream` remote, and
-  the shallow clone makes a naive fetch/push non-fast-forward even when the
-  fork is genuinely just behind. Full recipe (reach upstream directly,
-  deepen-loop past the shallow boundary, plain fast-forward push): see
-  `references/sync-fork-with-upstream-web-sandbox.md`. Verified 2026-07
-  syncing neqo, quinn, and firefox.
 - When a sheriff needinfos Max as the suspected cause of a new intermittent,
   check Treeherder's `failuresbybug` for failures on pushes *before* his,
   built without his code. Backfills on earlier pushes carry higher job IDs
