@@ -256,20 +256,15 @@ below, and **append anything durable you learn** so the next session benefits to
 
 <!-- Mistakes to not repeat; gotchas; things that surprised a past session. -->
 
-- neqo CI runs `rustfmt` as a **separate job from clippy**, so run both before pushing:
-  a green clippy does not imply a green fmt. Formatting rules (line width, wrapping) are
-  invisible to clippy even at `-D warnings --all-targets`. rustfmt here needs nightly too
-  (neqo uses unstable options): `cargo +nightly fmt --check` (or `cargo +nightly fmt` to
-  apply). Verified 2026-07: reverting `to_usize(CAP)` to the longer
-  `usize::try_from(CAP).unwrap()` pushed one line past the width limit: clippy stayed
-  clean, but the fmt job failed on it. Cheap to check, easy to forget after a
-  clippy-only sweep.
-- neqo lints are strict (`-D warnings`), so run clippy locally before pushing neqo
-  patches, using the same nightly CI uses (CI's toolchain is a rolling `nightly`, so a
-  stale local one gives false green): `rustup update nightly` before every check, not
-  just once. Reverting an old upstream patch verbatim often fails today's clippy too
-  (cast lints, `unwrap_in_result`, `allow_attributes`). Full recipe, exact commands, and
-  the 2026-07 concrete trap: `references/neqo-cargo-test-in-web-sandbox.md` ("Running
+- neqo CI is strict (`-D warnings`) and runs clippy and rustfmt as separate jobs
+  on a rolling `nightly`, so before pushing a neqo patch run both locally:
+  `rustup update nightly` every time (a stale nightly gives false green), then
+  clippy and `cargo +nightly fmt --check` (rustfmt needs nightly for neqo's
+  unstable options). A green clippy says nothing about line width: in 2026-07 a
+  longer `usize::try_from(CAP).unwrap()` passed clippy but failed fmt. Reverting
+  an old upstream patch verbatim often fails today's clippy too (cast lints,
+  `unwrap_in_result`, `allow_attributes`). Exact commands and the 2026-07
+  nightly trap: `references/neqo-cargo-test-in-web-sandbox.md` ("Running
   clippy").
 - The web-session `/home/user/firefox` checkout is a shallow squashed snapshot, so local
   `git blame`/`git log` are worthless for authorship. Use upstream hg or searchfox
