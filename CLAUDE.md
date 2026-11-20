@@ -302,20 +302,7 @@ below, and **append anything durable you learn** so the next session benefits to
   revision instead of updating the existing one. Max has had to point this out
   repeatedly: when a revision already exists, check for the trailer before
   handing over any patch or pushing any amend.
-- Firefox necko code review: do NOT tag the group `r?#necko-reviewers` in commit
-  messages (and ignore firefox
-  [`AGENTS.md`](https://github.com/mozilla-firefox/firefox/blob/main/AGENTS.md)'s
-  generic `r?#group-name` advice for necko): `moz-phab submit` rejects it. You
-  never needed it anyway: Herald auto-adds `#necko-reviewers` to any revision
-  touching `netwerk/` paths, so just name an individual and the group attaches
-  itself. Confirmed 2026-08 on
-  https://phabricator.services.mozilla.com/D315875: commit message said only
-  `r?valentin`, yet the revision came up with reviewers `valentin` AND
-  `necko-reviewers`. Individuals to name (authoritative roster is
-  [`mots.yaml`](https://searchfox.org/mozilla-central/source/mots.yaml),
-  module `core_necko`): owner `valentin` (Valentin Gosu), peers `kershaw`
-  (Kershaw Chang), `jesup` (Randell Jesup), `sunil` (Sunil Mayya). Max's usual
-  picks: `kershaw`, `valentin`, `leggert` (Lars Eggert, `[:lars]`, the neqo
-  maintainer: note the spelling `leggeRt`, not `leggett`). Firefox's in-tree `find-reviewer`
-  skill can look this up live via `mach` inside a checkout; see
-  `references/firefox-agent-skills.md`.
+- Firefox necko code review: never tag `r?#necko-reviewers` in a commit
+  message (`moz-phab submit` rejects it, and Herald adds the group to any
+  `netwerk/` revision anyway). Name an individual instead. Roster, Max's usual
+  picks, and the `leggert` spelling trap: `references/necko-reviewers.md`.
