@@ -6,11 +6,12 @@ Firefox topics. All sources below are public and reachable from a web sandbox
 
 ## Max's topics to filter for
 
-Happy Eyeballs v3 and connection racing, DNS (HTTPS RR and address hints,
+[Happy Eyeballs v3](https://datatracker.ietf.org/doc/draft-ietf-happy-happyeyeballs-v3/)
+and connection racing, DNS (HTTPS RR and address hints,
 stale/optimistic DNS, negative caching, DoH), QUIC transport (PMTUD, QUIC v2,
 black-hole detection, ACK behavior, congestion control), fast UDP I/O
 (GSO/GRO/recvmmsg), Alt-Svc and broken-QUIC handling, connection pooling,
-RFC 9218 prioritization, WebTransport, ECH.
+[RFC 9218](https://www.rfc-editor.org/rfc/rfc9218) prioritization, WebTransport, ECH.
 
 ## Chromium: Gerrit REST API
 
