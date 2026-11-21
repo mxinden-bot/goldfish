@@ -20,7 +20,7 @@ commit message said only `r?valentin`, yet the revision came up with reviewers
 
 The authoritative roster is
 [`mots.yaml`](https://searchfox.org/mozilla-central/source/mots.yaml), module
-`core_necko`. As of 2026-08:
+`core_necko`. Re-checked 2026-11:
 
 - owner: `valentin` (Valentin Gosu)
 - peers: `kershaw` (Kershaw Chang), `jesup` (Randell Jesup), `sunil` (Sunil Mayya)
