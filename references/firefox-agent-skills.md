@@ -37,7 +37,7 @@ since these are public pages.
   https://github.com/mozilla-firefox/firefox/blob/main/.agents/skills/file-good-first-bug/SKILL.md
 - `find-reviewer`: fills `r=` from `./mach file-info reviewers` (Herald group
   data first, VCS history fallback). Complements, does not replace, the necko
-  reviewer roster in CLAUDE.md's "Lessons learned": that note explains *why*
+  reviewer roster in `references/necko-reviewers.md`: that note explains *why*
   ([`mots.yaml`](https://searchfox.org/mozilla-central/source/mots.yaml),
   module `core_necko`) and carries Max's personal picks, which the skill has
   no way to know.
