@@ -55,11 +55,8 @@ below, and **append anything durable you learn** so the next session benefits to
    - If you somehow already committed on the random branch, create/rename to a
      descriptive branch (`git branch -m <good-name>` or `git checkout -b
      <good-name>`) before pushing.
-   - Goldfish memory edits made in a live session are the exception: they go
-     straight to `main`, no branch at all (see "How to maintain this file"
-     below). The scheduled memory-upkeep routine is a further exception to
-     that exception: it always opens a PR instead, since no one reviews its
-     edits live (see `routines/memory-upkeep.md`).
+   - Goldfish memory edits are the exception: see "How to maintain this file"
+     below.
 
 4. **Start from latest upstream `main`, and sync the fork.** Before beginning a
    new patch or pull request, pull the latest `main` from upstream and branch off
