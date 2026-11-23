@@ -33,6 +33,8 @@ Workflows:
   `bugzilla.mozilla.org`. Always pre-set the bug to ASSIGNED and assign it to
   me: `bug_status=ASSIGNED&assigned_to=mail@max-inden.de`. For Necko (Core ::
   Networking*) bugs, also set `status_whiteboard=[necko-triaged]`.
+- Glean/telemetry probes: never flag a data review in a bug description or in
+  chat. I handle review myself; the reminders are noise.
 - Git: one commit per pull request. Squash to a single clean commit before (or
   when) pushing, even after review back-and-forth. Use `git reset --soft <base>`
   then recommit, and `git push --force-with-lease`.
