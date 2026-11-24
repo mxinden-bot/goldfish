@@ -22,6 +22,7 @@ add, move, or remove a file, update this index in the same commit.
 - `references/orwell-writing-rules.md`: Orwell's six rules from "Politics and the English Language", verbatim. The writing style Max aspires to.
 - `references/neqo-cargo-test-in-web-sandbox.md`: build and `cargo test` mozilla/neqo in a web sandbox (git blocked, NSS needed), plus a stub-crate harness for linting one new file with no NSS at all.
 - `references/neqo-firefox-downstream.md`: bump neqo in Firefox (Cargo.toml revs, `mach vendor rust`, version-to-rev cargo-vet audits, glue files) and the libxul out-of-disk fix.
+- `references/firefox-vendored-crate-deps.md`: keep dependency changes in crates Firefox vendors (neqo, happy-eyeballs, ...) in line with Firefox's `Cargo.lock`, and what actually reaches it.
 - `references/glam-telemetry.md`: read Firefox Glean metrics from GLAM's public API (percentiles, label shares, the OS-filter trap, probe naming, performance.mozilla.org CSVs).
 - `references/run-firefox-in-web-sandbox.md`: run a prebuilt Firefox headless in a web session (proxy/MITM/offline/socket-process gotchas, Marionette driver, MOZ_LOG) to observe network-stack behavior.
 - `references/sync-fork-with-upstream-web-sandbox.md`: fast-forward a mxinden-bot fork's `main` to upstream in a web sandbox (proxy-blocked upstream remote, shallow-clone deepen loop).
