@@ -188,6 +188,23 @@ below, and **append anything durable you learn** so the next session benefits to
   hijacking Firefox, offline/captive-portal detection, socket-process logging,
   unreliable headless navigation) plus a Marionette driving recipe: see
   `references/run-firefox-in-web-sandbox.md`. Verified 2026-07.
+- Missing tooling (`profiler-cli`, `searchfox-cli`, ...): install it yourself,
+  any way that works, and never stop to ask Max first, even when a skill says
+  to stop and tell the user. Max said "don't ask me again". The web sandbox has
+  no `~/.mozbuild`, `./mach bootstrap` is slow and heavy, and `profiler-cli` is
+  a toolchain artifact, so this installs it to `~/.mozbuild/bin` in seconds:
+  ```sh
+  cd /home/user/firefox && ./mach python -c "
+  import sys; sys.path.insert(0,'python/mozboot')
+  from pathlib import Path
+  from mozboot.base import BaseBootstrapper
+  b=BaseBootstrapper(no_interactive=True)
+  b.state_dir=Path.home()/'.mozbuild'
+  b.ensure_npm_tools()"
+  export PATH=~/.mozbuild/bin:$PATH
+  ```
+  Without the `state_dir` line it dies with a `NoneType / str` TypeError.
+  Verified 2026-11 (profiler-cli 0.15.0).
 - Bugzilla bugs: when Max asks to draft one, do not return prose to paste. Build
   a ready-to-click `enter_bug.cgi` URL with the fields pre-filled so he opens it,
   reviews, and clicks Save/Submit. He only uses `bugzilla.mozilla.org`. Always
