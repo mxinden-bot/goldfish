@@ -305,12 +305,19 @@ below, and **append anything durable you learn** so the next session benefits to
   the first one looked at. Verified 2026-10 on
   https://bugzilla.mozilla.org/show_bug.cgi?id=2076875 (a stack-fixer race,
   not his crate bumps).
-- neqo's `debug!`/`trace!` logs are compiled out of every shipped Firefox,
-  Nightly included (`log` with `release_max_level_info` in
-  `toolkit/library/rust/shared/Cargo.toml`), and qlog has no HTTP/3 SETTINGS.
-  Never ask a reporter for `neqo_http3:5` from a release build; to see a
-  server's SETTINGS, ask for a Chrome `chrome://net-export` log or a Wireshark
-  capture with `SSLKEYLOGFILE`, or use a debug build.
+- neqo's debug and trace logs DO reach shipped builds (verified 2026-11 on
+  Nightly 163: `V/neqo_transport` lines in a profile). neqo logs through
+  `tracing`, which the `log` crate's `release_max_level_info` cap in
+  `toolkit/library/rust/shared/Cargo.toml` does not touch. Module syntax:
+  `neqo_transport::*:5`. qlog still has no HTTP/3 SETTINGS; for a server's
+  SETTINGS, `neqo_http3::*:5` or a Chrome `chrome://net-export` log works.
+- Congestion control from a Firefox profile: use the `about:logging` string
+  `timestamp,sync,neqo_transport::*:5,neqo_glue::*:5,neqo_http3::*:4,happy_eyeballs::*:5,nsHttp:5,nsHostResolver:5`
+  with output to the profiler, and drop `nsSocketTransport` (pure noise).
+  Happy Eyeballs C++ logs only at `nsHttp:5`. For a download, the client
+  cwnd is meaningless (it only sends ACKs); read the receive side instead:
+  `[Recvd-ap] received N` packet-number holes (never-received vs. late),
+  `RTT latest=` samples, and `PTO: marking packet N lost`. Verified 2026-11.
 - Firefox patches for an existing Phabricator revision: ALWAYS end the commit
   message with the trailer
   `Differential Revision: https://phabricator.services.mozilla.com/D<id>`.
