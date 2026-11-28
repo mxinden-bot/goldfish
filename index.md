@@ -28,3 +28,4 @@ add, move, or remove a file, update this index in the same commit.
 - `references/github-pr-reviews-in-web-sandbox.md`: read a PR's reviews from a web session when the PR's repo is out of session scope (what `add_repo`/`WebFetch` can and cannot reach, and why a child session is a dead end).
 - `references/firefox-agent-skills.md`: catalog of Firefox's in-tree `.agents/skills/` (bug filing, reviewer lookup, profiler analysis, spec-to-code mapping, and more), with cross-references to what overlaps in this repo.
 - `references/chrome-net-watch.md`: track Chrome networking and QUICHE (Gerrit REST queries, QUICHE flag defaults, chromestatus) for updates mapped to Max's Firefox topics, plus a dated baseline.
+- `references/firefox-profile-network-logs.md`: capture Necko and neqo logs into a Firefox profile and read them (fast `profiler-cli` install, neqo logs in shipped builds, congestion-control logging string and log lines).

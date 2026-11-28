@@ -190,21 +190,9 @@ below, and **append anything durable you learn** so the next session benefits to
   `references/run-firefox-in-web-sandbox.md`. Verified 2026-07.
 - Missing tooling (`profiler-cli`, `searchfox-cli`, ...): install it yourself,
   any way that works, and never stop to ask Max first, even when a skill says
-  to stop and tell the user. Max said "don't ask me again". The web sandbox has
-  no `~/.mozbuild`, `./mach bootstrap` is slow and heavy, and `profiler-cli` is
-  a toolchain artifact, so this installs it to `~/.mozbuild/bin` in seconds:
-  ```sh
-  cd /home/user/firefox && ./mach python -c "
-  import sys; sys.path.insert(0,'python/mozboot')
-  from pathlib import Path
-  from mozboot.base import BaseBootstrapper
-  b=BaseBootstrapper(no_interactive=True)
-  b.state_dir=Path.home()/'.mozbuild'
-  b.ensure_npm_tools()"
-  export PATH=~/.mozbuild/bin:$PATH
-  ```
-  Without the `state_dir` line it dies with a `NoneType / str` TypeError.
-  Verified 2026-11 (profiler-cli 0.15.0).
+  to stop and tell the user. Max said "don't ask me again". Fast `profiler-cli`
+  install for the web sandbox (no `~/.mozbuild` there):
+  `references/firefox-profile-network-logs.md`.
 - Bugzilla bugs: when Max asks to draft one, do not return prose to paste. Build
   a ready-to-click `enter_bug.cgi` URL with the fields pre-filled so he opens it,
   reviews, and clicks Save/Submit. He only uses `bugzilla.mozilla.org`. Always
@@ -305,19 +293,12 @@ below, and **append anything durable you learn** so the next session benefits to
   the first one looked at. Verified 2026-10 on
   https://bugzilla.mozilla.org/show_bug.cgi?id=2076875 (a stack-fixer race,
   not his crate bumps).
-- neqo's debug and trace logs DO reach shipped builds (verified 2026-11 on
-  Nightly 163: `V/neqo_transport` lines in a profile). neqo logs through
-  `tracing`, which the `log` crate's `release_max_level_info` cap in
-  `toolkit/library/rust/shared/Cargo.toml` does not touch. Module syntax:
-  `neqo_transport::*:5`. qlog still has no HTTP/3 SETTINGS; for a server's
-  SETTINGS, `neqo_http3::*:5` or a Chrome `chrome://net-export` log works.
-- Congestion control from a Firefox profile: use the `about:logging` string
-  `timestamp,sync,neqo_transport::*:5,neqo_glue::*:5,neqo_http3::*:4,happy_eyeballs::*:5,nsHttp:5,nsHostResolver:5`
-  with output to the profiler, and drop `nsSocketTransport` (pure noise).
-  Happy Eyeballs C++ logs only at `nsHttp:5`. For a download, the client
-  cwnd is meaningless (it only sends ACKs); read the receive side instead:
-  `[Recvd-ap] received N` packet-number holes (never-received vs. late),
-  `RTT latest=` samples, and `PTO: marking packet N lost`. Verified 2026-11.
+- Network logs in a Firefox profile: neqo's debug and trace logs DO reach
+  shipped builds (it logs through `tracing`, untouched by the `log` crate's
+  release cap). For congestion control, use the `about:logging` string in the
+  reference and, on a download, read the receive side, not the client cwnd.
+  Recipe, module syntax and log lines to grep:
+  `references/firefox-profile-network-logs.md`. Verified 2026-11.
 - Firefox patches for an existing Phabricator revision: ALWAYS end the commit
   message with the trailer
   `Differential Revision: https://phabricator.services.mozilla.com/D<id>`.
