@@ -47,7 +47,9 @@ since these are public pages.
   stacks, markers, threads, and samples; explicitly never hand-parses profile
   JSON or fetches the profiler UI with WebFetch. Different surface from
   `references/glam-telemetry.md` (that one is GLAM's aggregate percentile
-  API; this is a single profile's raw samples).
+  API; this is a single profile's raw samples). Installing `profiler-cli`
+  in a web sandbox and reading network logs from a profile:
+  `references/firefox-profile-network-logs.md`.
   https://github.com/mozilla-firefox/firefox/blob/main/.agents/skills/profiler-analysis/SKILL.md
 
 ## The rest
